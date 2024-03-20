@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* base styles */
+* {
+  box-sizing:border-box;
+  margin: 0;
+  font-family: "Quicksand";
+  color: #333;
+}
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-bottom: 5px solid #f2f2f2;
+}
+
+.navbar .links {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.navbar .link{
+  margin-right: 3rem;
+  font-size: 18px;
+  font-weight: 500;
+  transform: 10ms;
+  
+}
+
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.navbar a:hover {
+  color: #f1356d;
+  /* box-shadow: 1px 1px 1px black; */
+}
+
+.Complaints_container{
+  padding:3rem;
+  /* background-color: red; */
+}
+
+.Complaints_form{
+  /* background-color: blue; */
+  display:flex;
+  flex-direction: column;
+}
+
+.Complaint_content{
+  /* background-color: green; */
+  margin:2rem;
+  padding:2rem;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.Complaint_content .text{
+  margin:2rem;
+}
+
+.Complaint_content .Add_data{
+  background-color: green;
+  border-radius: 1rem;
+  margin-left: auto;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.Data_form{
+  /* background-color: #f1356d; */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+}
+
+.Data_form input{
+  margin:2rem;
+}
+
+/* .Data_form label{
+  display: inline-block;
+} */
+
+.Data_form_container .submit_button{
+  display: block;
+  margin: 20px auto 120px;
+  padding:2px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100px;
+  background-color: rgb(229, 9, 20);
+  transition: inherit;
+  border-style: solid;
+  border-width: 0.0625rem;
+  border-radius: 0.1875rem;
+  color:white;
+  font-weight:500;
+  font-size: 18px;
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.Data_form{
+  margin:5rem auto;
+  max-width: 1000px;
+
+}
+
+.Complaints_form .Add_data{
+  text-decoration: none;
+}
+
+
+/* */
+
+
+.Navbar_Home {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-bottom: 5px solid #f2f2f2;
+}
+
+.Navbar_Home .links {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.Navbar_Home .link{
+  margin-right: 3rem;
+  font-size: 18px;
+  font-weight: 500;
+  transform: 10ms;
+  
+}
+
+.Navbar_Home a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.Navbar_Home a:hover {
+  color: #f1356d;
+  /* box-shadow: 1px 1px 1px black; */
+}
+
+.Home_Container{
+  display: flex;
+}
+
+.Home_Container h1{
+  margin:2rem auto;
+}
+
+.Signin{
+  /* padding: 20px 0px; */
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+}
+
+.Signin h1{
+  font-size:30px;
+  margin:2rem auto;
+}
+
+.Signin .form{
+  margin:0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Signin .form .userid .userid_label{
+  margin-right: 1rem;
+}
+
+.Signin .form .password .password_label{
+  margin-right: 0.25rem;
+}
+
+.Signin .form .userid input{
+  width:10rem;
+}
+
+/* .Signin .form input{
+  margin-left: 10px;
+} */
+
+.submitbutton{
+   padding: 10px 16px;
+   border-radius: 10px;
+   font-size: 16px;
+   text-align: center;
+   color: black;
+   background-color: red;
+   max-width: 120px;
+   margin: 0 auto;
+   
+}
+
+
+
+
+
+/* .content{
+  margin: 20 px 0;
+  font-size: 30px;
+}
+
+.signinfrom{
+  
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.signinfrom h1{
+  font-size:30px;
+  padding: 20px 0;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form input{
+  margin-left: 10px;
+}
+
+.submitbutton{
+   padding: 10px 16px;
+   border-radius: 10px;
+   font-size: 16px;
+   text-align: center;
+   color: black;
+   background-color: red;
+   max-width: 120px;
+   margin: 0 auto;
+   
+}
+
+.Clerkhome{
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  margin-top: 10px;
+  gap: 30px;
+}
+
+.fromcomplaint{
+  display:flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.textarea{
+  padding: 10px 10px;
+
+}
+
+.location{
+  padding: 10px 10px;
+} */
