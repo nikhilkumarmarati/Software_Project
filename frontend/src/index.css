@@ -7,6 +7,7 @@
   font-family: "Quicksand";
   color: #333;
 }
+
 .navbar {
   padding: 20px;
   display: flex;
@@ -205,9 +206,50 @@
    max-width: 120px;
    margin: 0 auto;
    
-}
+  }
+  
+  .Clerkhome{
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    margin-top: 10px;
+    gap: 30px;
+    /* background-color: #f1356d; */
+  }
 
+  .Clerkhome h1{
+    margin:2rem auto;
+  }
 
+  .Clerkhome .Add_complaint{
+    text-decoration: none;
+  }
+
+  .Clerk_Complaint_Container{
+    display: flex;
+    flex-direction: column;
+    /* background-color: aquamarine; */
+  }
+
+  .Clerk_Complaint_Container .Clerk_Complaint_form{
+    display: flex;
+    flex-direction: column;
+    margin:3rem auto;
+    gap:2rem;
+  }
+
+  .Clerk_Complaint_form label{
+    margin-right:2rem;
+  }
+
+  .Clerk_Complaint_form .Clerk_Complaint_box{
+    display: flex;
+  }
+
+  .Clerk_Complaint_box textarea{
+    width:9rem;
+    height:5rem;
+  }
 
 
 
@@ -250,13 +292,6 @@
    
 }
 
-.Clerkhome{
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
-  margin-top: 10px;
-  gap: 30px;
-}
 
 .fromcomplaint{
   display:flex;

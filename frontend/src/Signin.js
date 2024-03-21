@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 const Signin= () =>{
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-//   const history=useHistory();
+  const history=useHistory();
   const SubmitRecord = async(e) => {
     e.preventDefault();
     // console.log(username);
     // console.log(password);
-    // history.push('/Clerkhome');
+    history.push('/Clerk_Home');
 
 
 };

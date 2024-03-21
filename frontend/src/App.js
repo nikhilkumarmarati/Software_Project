@@ -31,7 +31,7 @@ function App() {
       </Switch>
 
       <Switch>
-        <Route  path="/Clerk" >
+        <Route  path="/Clerk_Home" >
           <Navbar_Clerk />
           <Clerk_Home />
         </Route>
