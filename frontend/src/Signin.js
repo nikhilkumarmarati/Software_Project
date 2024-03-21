@@ -7,8 +7,17 @@ const Signin= () =>{
   const history=useHistory();
   const SubmitRecord = async(e) => {
     e.preventDefault();
-    // console.log(username);
-    // console.log(password);
+    fetch('http://localhost:5001/addClerk',{
+        method:"post",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          username:username,
+          password:password
+        })
+      }).then(res=>res.json())
+      .then(data=>{console.log(data)})
     history.push('/Clerk_Home');
 
 
