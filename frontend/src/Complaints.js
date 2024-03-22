@@ -16,7 +16,7 @@ const Complaints = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/");
+        const response = await fetch("http://localhost:5000/allcomplaints");
         const jsonData = await response.json();
         setData(jsonData);
         console.log(jsonData);
@@ -32,11 +32,13 @@ const Complaints = () => {
     <div className="Complaints_container">
       <div className="Complaints_form">
           <h1>All complaints</h1>
-          {data.map((blog) => (
-          <div key={blog.id} className="Complaint_content">
+          {data.map((jsonData,index) => (
+          <div key={index} className="Complaint_content">
             {/* Render your blog content here */}
             <div className="text">
-              <p>{blog.Complaint}</p>
+              <p>Address: {jsonData.Address}</p>
+              
+              <p>Problem: {jsonData.Problem}</p>
             </div>
             
             <Link to = "/Data_form" className="Add_data" >
