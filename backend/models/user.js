@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const clerkSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     UserID: {
         type: String,
         required: true,
@@ -15,8 +15,22 @@ const clerkSchema = new mongoose.Schema({
     },
     city:{
         type: String,
+    },
+    position:{
+        type:String
+    },
+    name:{
+        type:String
+    },
+    phoneno:{
+        type:String
+    },
+    Email:{
+        type: String,
+    },
+    Issignin:{
+        type:Number
     }
-    
 })
 
-mongoose.model("CLERK" , clerkSchema)
+mongoose.model("USER", userSchema)

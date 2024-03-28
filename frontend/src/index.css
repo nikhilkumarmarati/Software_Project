@@ -4,8 +4,13 @@
 * {
   box-sizing:border-box;
   margin: 0;
+  padding: 0;
   font-family: "Quicksand";
   color: #333;
+}
+
+body a{
+  text-decoration: none;
 }
 
 .navbar {
@@ -27,13 +32,13 @@
   font-size: 18px;
   font-weight: 500;
   transform: 10ms;
+  padding: 6px;
   
 }
 
 .navbar a {
   margin-left: 16px;
   text-decoration: none;
-  padding: 6px;
 }
 .navbar a:hover {
   color: #f1356d;
@@ -41,7 +46,7 @@
 }
 
 .Complaints_container{
-  padding:3rem;
+  padding:0rem 3rem;
   /* background-color: red; */
 }
 
@@ -51,18 +56,49 @@
   flex-direction: column;
 }
 
+.Complaints_form h1{
+  margin:2rem auto;
+  padding: 0.5rem;
+  /* border:2px solid green; */
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgb(94, 91, 91);
+}
+
 .Complaint_content{
   /* background-color: green; */
   margin:2rem;
-  padding:2rem;
-  border: 2px solid black;
+  padding:1rem;
+  /* border: 2px solid black; */
+  box-shadow: 2px 2px 2px 2px rgb(171, 171, 171);
   display: flex;
   flex-direction: column;
+  min-width: 650px;
 
 }
 
 .Complaint_content .text{
   margin:2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.Complaint_content .rowtexts{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Complaint_content .text .sidelabel{
+  font-size: 22px;
+  font-family: "Roboto", sans-serif;
+  margin-right: 0.5rem;
+  min-width:100px;
+}
+
+.Complaint_content .text .maintext{
+  font-size: 19px;
+  font-family: "Montserrat", sans-serif;
+  /* background-color: aqua; */
 }
 
 .Complaint_content .Add_data{
@@ -74,43 +110,37 @@
 }
 
 .Data_form{
-  /* background-color: #f1356d; */
   display: flex;
   flex-direction: column;
+  align-items: center;
   border: 2px solid black;
+  margin:5rem auto;
+  max-width: 1000px;
 }
 
 .Data_form input{
   margin:2rem;
 }
 
-/* .Data_form label{
-  display: inline-block;
-} */
+.Data_form_container {
+  display: flex;
+  justify-content: center; 
+}
+
 
 .Data_form_container .submit_button{
-  display: block;
-  margin: 20px auto 120px;
-  padding:2px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 20px auto 120px; 
+  padding: 2px 0;
   max-width: 100px;
   background-color: rgb(229, 9, 20);
   transition: inherit;
   border-style: solid;
   border-width: 0.0625rem;
   border-radius: 0.1875rem;
-  color:white;
-  font-weight:500;
+  color: white;
+  font-weight: 500;
   font-size: 18px;
-  border-color: rgba(0, 0, 0, 0);
-}
-
-.Data_form{
-  margin:5rem auto;
-  max-width: 1000px;
-
+  border-color: rgba(0, 0, 0, 0)
 }
 
 .Complaints_form .Add_data{
@@ -121,75 +151,137 @@
 /* */
 
 
-.Navbar_Home {
+.Navbar {
   padding: 20px;
   display: flex;
   align-items: center;
   margin: 0 auto;
-  border-bottom: 5px solid #f2f2f2;
+  /* border-bottom: 5px solid #f2f2f2; */
+  background: #000;
 }
 
-.Navbar_Home .links {
+.Navbar h1{
+  color:#fff;
+}
+
+.Navbar .links {
   margin-left: auto;
   display: flex;
   flex-wrap: nowrap;
+  /* background-color: #FF0099; */
 }
 
-.Navbar_Home .link{
+.Navbar .links .link {
   margin-right: 3rem;
+  padding: 0.4rem;
   font-size: 18px;
   font-weight: 500;
-  transform: 10ms;
-  
+  color: #fff;
+  transition: 0.1s ease;
+  border-radius: 5px;
+  /* background-color: #130CB7; */
+  cursor: pointer;
 }
 
-.Navbar_Home a {
-  margin-left: 16px;
-  text-decoration: none;
-  padding: 6px;
+.Navbar .links .link:hover {
+  background: linear-gradient(45deg, #4f1919, #ff3333);
+  box-shadow: 2px 2px 2px 2px rgb(128, 2, 2);
 }
-.Navbar_Home a:hover {
-  color: #f1356d;
-  /* box-shadow: 1px 1px 1px black; */
-}
+
 
 .Home_Container{
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background: linear-gradient(to right,rgba(110, 228, 110, 0.534),#d3d32f94); 
+  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
 }
 
-.Home_Container h1{
-  margin:2rem auto;
+.Hero{
+  background-image: url("../public/Home(1).png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  height:90vh;
+  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
+}
+
+.Home_text{
+  font-size: 40px;
+  font-weight: 800;
 }
 
 .Signin{
-  /* padding: 20px 0px; */
-  /* background-color: aqua; */
+  background: linear-gradient(to right,#130CB7,#FF0099);
+  height: 90vh;
   display: flex;
   flex-direction: column;
 }
 
 .Signin h1{
   font-size:30px;
-  margin:2rem auto;
+  margin:1rem auto;
 }
 
 .Signin .form{
-  margin:0 auto;
+  margin:auto auto;
+  padding:2rem;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  
 }
 
-.Signin .form .userid .userid_label{
-  margin-right: 1rem;
+.Signin .inputs{
+  margin-top:1rem;
+  display: flex;
+  flex-direction: column;
+  gap:25px;
 }
 
-.Signin .form .password .password_label{
-  margin-right: 0.25rem;
+.Signin .input{
+  display: flex;
+  align-items: center;
+  background: #eaeaea;
+  border-radius: 40px;
+  box-shadow: 2px 2px black;
 }
 
-.Signin .form .userid input{
-  width:10rem;
+.Signin .input input{
+  margin:auto;
+  width:15rem;
+  height:3.6rem;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 6px;
+  border:none;
+  outline:none;
+  background-color: transparent;
+}
+
+.Signin img{
+  margin:0 1rem;
+}
+
+.Signin .error_signin{
+  display: flex;
+  justify-content: center;
+  background-color: #f2f2f2;
+  /* margin: 1rem auto; */
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: "Euclid Circular A", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  color: rgb(151, 6, 6);
+  background-color: rgb(231, 94, 94);
 }
 
 /* .Signin .form input{
@@ -198,16 +290,27 @@
 
 .submitbutton{
    padding: 10px 16px;
-   border-radius: 10px;
+   border-radius: 25px;
    font-size: 16px;
    text-align: center;
-   color: black;
-   background-color: red;
+   color: white;
+   background: black;
    max-width: 120px;
    margin: 0 auto;
    cursor:pointer;
-   
+   box-shadow: 2px 2px rgb(33, 30, 30);
+   transition: background-color 0.3s ease;
   }
+  
+  /* Button Click Effect */
+  .submitbutton:active {
+    box-shadow: none; /* Add shadow on click */
+  }
+
+/* .submitbutton:hover{
+  color:black;
+  background-color: green;
+} */
   
   .Clerkhome{
     display: flex;
@@ -218,93 +321,22 @@
     /* background-color: #f1356d; */
   }
 
-  .Clerkhome h1{
-    margin:2rem auto;
-  }
+  
 
   .Clerkhome .Add_complaint{
     text-decoration: none;
   }
 
-  .Clerk_Complaint_Container{
+  .somebar {
+    padding: 0px;
     display: flex;
-    flex-direction: column;
-    /* background-color: aquamarine; */
+    align-items: center;
+    /* border-bottom: 5px solid #f2f2f2; */
   }
-
-  .Clerk_Complaint_Container .Clerk_Complaint_form{
-    display: flex;
-    flex-direction: column;
-    margin:3rem auto;
-    gap:2rem;
-  }
-
-  .Clerk_Complaint_form label{
-    margin-right:2rem;
-  }
-
-  .Clerk_Complaint_form .Clerk_Complaint_box{
-    display: flex;
-  }
-
-  .Clerk_Complaint_box textarea{
-    width:9rem;
-    height:5rem;
-  }
-
-
-
-/* .content{
-  margin: 20 px 0;
-  font-size: 30px;
-}
-
-.signinfrom{
   
-  padding: 20px 0px;
-  display: flex;
-  flex-direction: column;
-}
-
-.signinfrom h1{
-  font-size:30px;
-  padding: 20px 0;
-}
-
-.form{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form input{
-  margin-left: 10px;
-}
-
-.submitbutton{
-   padding: 10px 16px;
-   border-radius: 10px;
-   font-size: 16px;
-   text-align: center;
-   color: black;
-   background-color: red;
-   max-width: 120px;
-   margin: 0 auto;
-   
-}
-
-
-.fromcomplaint{
-  display:flex;
-  margin: 0 auto;
-  flex-direction: column;
-}
-
-.textarea{
-  padding: 10px 10px;
-
-}
-
-.location{
-  padding: 10px 10px;
-} */
+  .somebar .extralinks {
+    padding-right: 3rem;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: nowrap;
+  }

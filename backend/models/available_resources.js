@@ -1,18 +1,11 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types
 
-const needed_resourcesschema = new mongoose.Schema({
-    complaint_id:{
+const available_resourcesschema = new mongoose.Schema({
+    complaint:{
         type: ObjectId,
-        ref: "COMPLAINT"
-    },
-    priority:{
-        type:Number,
-        required:true
-    },
-    time:{
-        type:Number,
-        required:true
+        ref: "COMPLAINT",
+        required:false
     },
     Workers: {
         type: Number,
@@ -60,18 +53,29 @@ const needed_resourcesschema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    status:{
-        type:String,
-        default:"pending"
-    },
-    city:{
-       type:String
-    },
-    suburb:{
-        type:String
-    },
 
+    Workers_inuse: {
+        type: Number,
+    },
+    Civil_Engineers_inuse: {
+        type: Number,      
+    },
+    Site_Supervisors_inuse: {
+        type: Number,  
+    },
+    Road_Roller_inuse:{
+        type: Number,
+        default:0,
+    },
+    Excavators_inuse:{
+        type: Number,
+        default:0,
+    },
+    Dump_Trucks_inuse:{
+        type: Number,
+        default:0,
+    },
 
 })
 
-mongoose.model("NEEDED_RESOURCES" , needed_resourcesschema)
+mongoose.model("AVAILABLE_RESOURCES" , available_resourcesschema)
