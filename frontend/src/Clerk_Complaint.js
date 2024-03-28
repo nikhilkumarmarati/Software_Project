@@ -1,15 +1,15 @@
 import React, { useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory ,useLocation,Redirect} from 
+'react-router-dom';
 
 const Clerk_Complaint=()=>{
-
-  const [location, setLocation] = useState('');
+  const loc=useLocation();
+  const [location,setLocation]=useState('');
   const [complaint, setComplaint] = useState('');
   const history=useHistory();
+  const user = loc.state && loc.state.user;
   const handleSubmit = async (e) => {
-    console.log("Button clicked");
     e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:5000/complaint_post', {
         method: 'POST',
@@ -18,25 +18,27 @@ const Clerk_Complaint=()=>{
         },
         body: JSON.stringify({
           Address: location,
-          Problem: complaint
+          Problem: complaint,
+          suburb:user.suburb,
+          city:user.city,
+          status:"new"
         })
       });
-
+    
+      
       if (!response.ok) {
         throw new Error('Failed to submit complaint');
       }
-
-      // Optionally, you can handle the response from the server
       const responseData = await response.json();
       console.log(responseData);
-      
-      // Optionally, you can perform additional actions after successful submission
 
     } catch (error) {
       console.error('Error submitting complaint:', error);
     }
-
-      history.push('/Clerk_Home');
+    history.push({
+      pathname: "/Clerk_Home",
+      state: { user: user}
+    });
   };
     return(
 
