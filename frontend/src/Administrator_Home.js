@@ -5,7 +5,7 @@ import {  useLocation } from "react-router-dom/cjs/react-router-dom.min";
 const Administrator_Home=()=>{
   const location=useLocation();
   const user = location.state ? location.state.user : null;
-  const [data, setData] = useState({ complaints: [], resources: [] });
+  const [data, setData] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {

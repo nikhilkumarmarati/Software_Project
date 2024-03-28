@@ -1,14 +1,26 @@
 import React, { useState} from 'react';
-import { useHistory ,useLocation,Redirect} from 
-'react-router-dom';
+import { useHistory ,useLocation} from 'react-router-dom';
 
 const Clerk_Complaint=()=>{
   const loc=useLocation();
   const [location,setLocation]=useState('');
   const [complaint, setComplaint] = useState('');
+  const [isfocus,setIsfocus] = useState(false);
+  const [isfocus_comp,setIsfocus_comp] = useState(false);
   const history=useHistory();
   const user = loc.state && loc.state.user;
+
+  const handleFocus = () => {
+    setIsfocus(true);
+    setIsfocus_comp(false);
+  };
+  const handleFocus_complaint = () => {
+    setIsfocus_comp(true);
+    setIsfocus(false);
+  };
+
   const handleSubmit = async (e) => {
+    console.log("Button clicked");
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:5000/complaint_post', {
@@ -20,12 +32,10 @@ const Clerk_Complaint=()=>{
           Address: location,
           Problem: complaint,
           suburb:user.suburb,
-          city:user.city,
-          status:"new"
+          city:user.city
         })
       });
-    
-      
+
       if (!response.ok) {
         throw new Error('Failed to submit complaint');
       }
@@ -42,26 +52,35 @@ const Clerk_Complaint=()=>{
   };
     return(
 
-        <div className="Clerk_Complaint_Container">
-          <form className='Clerk_Complaint_form' onSubmit={handleSubmit}>
-            <div className="location"><label >Location:</label>
-                <input type="text"  
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                />
-            </div>
-            <div className="Clerk_Complaint_box">
-               <label >Complaint:</label>
-               <textarea
-                  required
-                  value={complaint}
-                  onChange={(e) => setComplaint(e.target.value)}
-                  ></textarea>
-            </div>
-          <button className='submitbutton' type ='submit'>Submit </button>
-           </form>
-          
-        </div>);
+      <div className="Clerk_Complaint_Container">
+        <form className='Clerk_Complaint_form' onSubmit={handleSubmit}>
+          <h2>Complaint-ID</h2>
+          <div className="location">
+              <input className={` ${isfocus ? 'input-focus':''}`} type="text" 
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              onFocus={handleFocus}
+              />
+              <div className={`labelline ${isfocus ? 'labelline-focus':''}`}>
+                Location
+              </div>
+          </div>
+          <div className="Clerk_Complaint_box">
+             <textarea
+                className={` ${isfocus_comp ? 'textarea-complaint-focus':''}`}                  
+                required
+                value={complaint}
+                onChange={(e) => setComplaint(e.target.value)}
+                onFocus={handleFocus_complaint}
+                ></textarea>
+              <div className={`labelline-complaint ${isfocus_comp ? 'labelline-complaint-focus':''}`}>
+                Complaint
+              </div>
+          </div>
+         <button className='submitbutton' type ='submit'>Submit </button>
+         </form>
+        
+      </div>);
 }
 
 export default Clerk_Complaint
