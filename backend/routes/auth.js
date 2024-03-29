@@ -86,10 +86,16 @@ router.post('/sign__in', async (req, res) => {
 
 router.get("/allcomplaints", async (req, res) => {
     const { suburb, city, status } = req.query;
-    let query = { suburb, city }; 
+    let query = {}; 
+    
+    if(suburb!="all"&&city!="all"){
+        query.suburb = suburb;
+        query.city= city;
+    }
     if (status) {
         query.status = status;
     }
+    console.log(query)
     try {
         const complaints = await COMPLAINT.find(query)
             .sort("-date")
@@ -100,6 +106,41 @@ router.get("/allcomplaints", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch complaints" });
     }
 });
+
+router.get("/allresources", async (req, res) => {
+    const { status } = req.query;
+    let query = {status}; 
+    
+    console.log(query)
+    try {
+        const resources = await NEEDED_RESOURCES.find(query)
+            .sort("-date")
+            .exec();
+        res.json(resources);
+    } catch (err) {
+        console.error("Error fetching resources:", err);
+        res.status(500).json({ error: "Failed to fetch resources" });
+    }
+});
+router.get("/getcomplaint", async (req, res) => {
+    const { complaint_id } = req.query; // Extract complaint_id from query parameters
+    try {
+        const complaint = await COMPLAINT.findById(complaint_id);
+        res.json(complaint);
+        console.log(complaint);
+    } catch (err) {
+        console.error("Error fetching complaint:", err);
+        res.status(500).json({ error: "Failed to fetch complaint" });
+    }
+});
+
+// router.get("/getcomplaint", async (req, res) => {
+//     const complaint_id = req.query;
+//           const complaint = await COMPLAINT.findById(complaint_id);
+//           console.log("after");
+
+//       res.json(complaint);
+//   });
 
 router.post('/complaint_post',async (req,res)=>{
     const{Address,Problem,suburb,city,status} = req.body;
@@ -156,6 +197,33 @@ router.post('/data_post', async (req, res) => {
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+router.post('/update_resources', async (req, res) => {
+    const{Workers,Civil_Engineers,Site_Supervisors,Asphalt_in_kg,Concrete_in_kg,Gravel_in_kg,Road_Roller,Excavators,Dump_Trucks} = req.body;
+    try {
+        const updatedUser = await AVAILABLE_RESOURCES.findOneAndUpdate(
+            { },
+            {   Workers:Workers,
+                Civil_Engineers:Civil_Engineers,
+                Site_Supervisors:Site_Supervisors,
+                Asphalt_in_kg:Asphalt_in_kg,
+                Concrete_in_kg:Concrete_in_kg,
+                Gravel_in_kg:Gravel_in_kg,
+                Road_Roller:Road_Roller,
+                Excavators:Excavators,
+                Dump_Trucks:Dump_Trucks},
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(422).json({ error: "Invalid UserID" });
+        }
+        return res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
@@ -220,16 +288,6 @@ router.get("/get_available_resources", (req, res) => {
         .then(update_work_schedule())
         .catch(err => console.log(err))
         
-})
-
-router.get("/getresources", (req, res) => {
-    const complaint_id = req.query
-    NEEDED_RESOURCES.findOne({complaint_id:complaint_id})
-        .then(resources => {
-            
-        res.json(resources);
-        })
-        .catch(err => console.log(err))
 })
 
 module.exports = router;

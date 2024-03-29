@@ -459,3 +459,24 @@ body a{
     transform: translate(0px,-40px) scale(0.99);
   }
 
+
+
+  .expand-button {
+    background-color: transparent;
+    color: #007bff; /* Blue color */
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .expand-button:hover {
+    background-color: #007bff; /* Blue color on hover */
+    color: #fff; /* White text on hover */
+  }
+  
+  /* Optional: Add additional styling for the button when it is active */
+  .expand-button:active {
+    background-color: #0056b3; /* Darker shade of blue when button is active */
+  }
