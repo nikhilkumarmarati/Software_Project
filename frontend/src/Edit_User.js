@@ -7,8 +7,27 @@ const Edit_User = () => {
     const history = useHistory();
     const user = location.state && location.state.user;
     const [password, setPassword] = useState(user.password);
+    const [currpassword, setCurrpassword] = useState('');
     const [name, setName] = useState(user.name);
     const [phoneno, setPhoneno] = useState(user.phoneno);
+    const [error, setError] = useState(false);
+    const [editpwd, setIseditpwd] = useState(false);
+    const [verifypwd, setVerifypwd] = useState(false);
+
+    const handlechangepwd = () => {
+        if(!editpwd) setIseditpwd(true);
+    };
+
+    const handleverifypwd = () => {
+        if(currpassword === user.password){
+            setVerifypwd(true);
+            if(error) setError(false);
+        }
+        else{
+            setError(true);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -57,65 +76,172 @@ const Edit_User = () => {
     
     if(user.position==="administrator"){
         return(
-            <div className="Signin">
-            <h1>Edit your information here:</h1>
-            <form className="form" onSubmit={handleSubmit}>
-                <div className="userid">
-                    <label className="userid_label"> UserId:</label>
-                    <input
-                        type="text"
-                        name="UserID"
-                        id="UserID"
-                        placeholder="UserID"
-                        value={user.UserID}
-                        disabled={true} 
-                    />
+                <div className="profile_container">
+                    <div className="profile">
+                    {/* <h1>Edit your information here:</h1> */}
+                        <div className="profilepic"></div>
+                    <form className="profileform" onSubmit={handleSubmit}>
+                    {error && ( <div className="error_signin profileerror">Invalid Password</div>)}
+                        <div className="userid">
+                            <input
+                                type="text"
+                                name="UserID"
+                                id="UserID"
+                                value={user.UserID}
+                                disabled={true} 
+                                />
+                            <div className="labelline">
+                                UserId
+                            </div>
+                        </div>
+                        {!editpwd && (<div className="password">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                required
+                                value={password}
+                                disabled={true}
+                                />
+                            <div className="labelline">
+                                Password
+                            </div>
+                            <div className="editpasswordlogo" onClick={handlechangepwd}>
+                                <img src = "./editpwd.png" alt ="edit" />
+                            </div>
+                        </div>)}
+        
+                        {editpwd && !verifypwd && (<div className="password">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                required
+                                onChange={(e) => setCurrpassword(e.target.value)}
+                            />
+                            <div className="labelline">
+                               CurrentPassword
+                            </div>
+                            <div className="submitbutton verifypwd" onClick={handleverifypwd}>
+                                Next
+                            </div>
+                        </div>)}
+        
+                        {verifypwd && (<div className="password">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                required
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <div className="labelline">
+                               NewPassword
+                            </div>
+                        </div>)}
+                        {/* <div className="name">
+                            <input
+                                type="text"
+                                name="UserID"
+                                id="name"
+                                placeholder="Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                
+                            />
+                            <div className="labelline">
+                                Name
+                            </div>
+                        </div>
+                        <div className="phonenum">
+                            <input
+                                type="text"
+                                name="phoneno"
+                                placeholder="Phone no"
+                                value={phoneno}
+                                onChange={(e) => setPhoneno(e.target.value)}
+                                
+                            />
+                            <div className="labelline">
+                                PhoneNumber
+                            </div>
+                        </div> */}
+                        <button className="submitbutton" type="submit"> Update </button>
+                    </form>
                 </div>
-                <div className="password">
-                    <label className="password_label">Password:</label>
-                    <input
-                        type="text" // Change type to "text" for visibility
-                        name="password"
-                        id="password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
                 </div>
-                <button className="submitbutton" type="submit"> Submit</button>
-                </form>
-        </div>
-        );
-    }
+                );
+        }
     else{
         return(
-            <div className="Signin">
-            <h1>Edit your information here:</h1>
-            <form className="form" onSubmit={handleSubmit}>
+        <div className="profile_container">
+            <div className="profile">
+            {/* <h1>Edit your information here:</h1> */}
+                <div className="profilepic"></div>
+            <form className="profileform" onSubmit={handleSubmit}>
+
+            {error && ( <div className="error_signin profileerror">Invalid Password</div>)}
+
                 <div className="userid">
-                    <label className="userid_label"> UserId:</label>
                     <input
                         type="text"
                         name="UserID"
                         id="UserID"
-                        placeholder="UserID"
                         value={user.UserID}
                         disabled={true} 
-                    />
+                        />
+                    <div className="labelline">
+                        UserId
+                    </div>
                 </div>
-                <div className="password">
-                    <label className="password_label">Password:</label>
+
+                {!editpwd && (<div className="password">
                     <input
-                        type="text" // Change type to "text" for visibility
+                        type="password"
                         name="password"
                         id="password"
                         required
                         value={password}
+                        disabled={true}
+                        />
+                    <div className="labelline">
+                        Password
+                    </div>
+                    <div className="editpasswordlogo" onClick={handlechangepwd}>
+                        <img src = "./editpwd.png" alt ="edit" />
+                    </div>
+                </div>)}
+
+                {editpwd && !verifypwd && (<div className="password">
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        required
+                        onChange={(e) => setCurrpassword(e.target.value)}
+                    />
+                    <div className="labelline">
+                       CurrentPassword
+                    </div>
+                    <div className="submitbutton verifypwd" onClick={handleverifypwd}>
+                        Next
+                    </div>
+                </div>)}
+
+                {verifypwd && (<div className="password">
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        required
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                </div>
-                <div className="userid">
-                <label className="userid_label"> Name:</label>
+                    <div className="labelline">
+                       NewPassword
+                    </div>
+                </div>)}
+
+                <div className="name">
                     <input
                         type="text"
                         name="UserID"
@@ -125,9 +251,11 @@ const Edit_User = () => {
                         onChange={(e) => setName(e.target.value)}
                         
                     />
+                    <div className="labelline">
+                        Name
+                    </div>
                 </div>
-                <div className="userid">
-                <label className="userid_label"> Phone No:</label>
+                <div className="phonenum">
                     <input
                         type="text"
                         name="phoneno"
@@ -136,9 +264,13 @@ const Edit_User = () => {
                         onChange={(e) => setPhoneno(e.target.value)}
                         
                     />
+                    <div className="labelline">
+                        PhoneNumber
+                    </div>
                 </div>
-                <button className="submitbutton" type="submit"> Submit</button>
+                <button className="submitbutton" type="submit"> Update </button>
             </form>
+        </div>
         </div>
         );
     }
