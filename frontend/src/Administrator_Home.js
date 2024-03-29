@@ -7,7 +7,6 @@ const Administrator_Home = () => {
   const user = location.state ? location.state.user : null;
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const [showDetails, setShowDetails] = useState(true); 
   const [expandedItems, setExpandedItems] = useState({}); // State to manage collapse/expand
 
   useEffect(() => {
