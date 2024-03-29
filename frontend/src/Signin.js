@@ -68,7 +68,7 @@ const handleSubmit = async (e) => {
       <div className="Signin">
         <form className="form" onSubmit={handleSubmit}>
           <h1 >SIGN IN</h1>
-          {error && ( <div className="error_signin">{error}</div>)}
+          {error && ( <div className="error_signin ">{error}</div>)}
           <div className="inputs">
             <div className="input">
               <img src="./person.png" alt=" "></img>

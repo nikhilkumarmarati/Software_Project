@@ -282,7 +282,7 @@ body a{
   margin:0 1rem;
 }
 
-.Signin .error_signin{
+.error_signin{
   display: flex;
   justify-content: center;
   background-color: #f2f2f2;
@@ -458,4 +458,111 @@ body a{
     line-height: 30px;
     transform: translate(0px,-40px) scale(0.99);
   }
+
+  .profile_container{
+    height:100vh;
+    padding-top: 2rem;
+    background-color: #1c2841;
+  }
+
+  .profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin:0 auto;
+    /* padding: 2rem; */
+    background-color:#9e9b9b;
+    border-radius: 20px;
+    box-shadow:2px 2px 4px 4px;
+  }
+
+  .profilepic{
+    position: relative;
+    top:4rem;
+    width:150px;
+    height:150px;
+    clip-path: circle(75px);
+    background-image: url("../public/profile.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color:#9e9b9b;
+    z-index: 1;
+  }
+
+  .profile .profileform{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25;
+    width: auto;
+    /* max-height:460px ; */
+   
+    padding:5rem 5rem 1rem 5rem;
+    border-radius: 5px 5px 20px 20px;
+    background-color: #786b6b;
+    position: relative;
+  }
+
+  .profile input{
+    outline: none;
+    font-size: 1.2rem;
+    /* line-height: 0.5rem; */
+    padding:0.5rem;
+    /* background-color: #130CB7; */
+    background:transparent;
+    border:2px solid #f0ffff;
+    border-radius: 10px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .profileform .labelline{
+    position: relative;
+    width: min-content;
+    font-size: 1rem;
+    color:whitesmoke;
+    padding: 0 8px;
+    margin:0 20px;
+    background-color: #786b6b;
+    transition: 0.2s ease;
+    z-index: 1;
+    /* color:#66ff00; */
+    height:30px;
+    line-height: 30px;
+    transform: translate(0px,-60px) scale(0.99);
+  }
+
+  .profileform .editpasswordlogo{
+    width: fit-content;
+    /* background-color: #130CB7; */
+    transform: translate(200px,-65px) scale(0.99);
+    cursor: pointer;
+  }
+
+  .profileform .editpasswordlogo img{
+    width:20px;
+    height: 20px;
+  }
+
+  .profileform .password .verifypwd{
+    position: relative;
+    top:-1.5rem;
+    margin-right: 2px;
+    padding:0.1rem;
+    
+  }
+
+  .profileerror{
+    margin-bottom: 20px;
+    background-color: #333;
+  }
+
+
+
+
+
+
+
 
