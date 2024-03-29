@@ -14,10 +14,17 @@ const complaintSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-
-    //status
-    //city
-
+    suburb:{
+       type:String,
+       required:true
+    },
+    city:{
+        type:String,
+        required:true
+    },
+    status:{
+        type:String,
+    }
 })
 
 mongoose.model("COMPLAINT" , complaintSchema)

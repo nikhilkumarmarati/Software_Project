@@ -1,8 +1,7 @@
 import React , {useContext} from 'react';
 import {Link ,useLocation,useHistory} from 'react-router-dom';
 import {LoginContext} from './Contexts/LoginContext';
-
-const Navbar_Sp = () => {
+const Navbar_admin = () => {
     const location=useLocation();
     const history = useHistory();
     const user = location.state ? location.state.user : null;
@@ -18,15 +17,13 @@ const Navbar_Sp = () => {
         <nav className="Navbar">
             <h1>Public Works Department</h1>
             <div className="links">
-                <Link to={{ pathname: "/Supervisor_Home", state: { user: user} }} className="link">Home</Link>
-                <Link to={{ pathname: "/Edit_Supervisor", state: { user: user} }} className='link'>Edit Profile</Link>
-                <Link to={{ pathname: "/Complaints", state: { user: user} }}className="link">New Complaints</Link>
-                <Link to={{pathname:"/Work_schedule",state: { user: user} }} className="link">Work Schedule</Link>
-                <Link to={{pathname:"/Completed_works",state: { user: user} }} className="link">Completed Works</Link>
+                <Link to={{ pathname: "/Administrator_Home", state: { user: user} }} className="link">Home</Link>
+                <Link to={{ pathname: "/Edit_Administrator", state: { user: user} }} className='link'>Edit Profile</Link>
+                <Link to={{ pathname: "/update_resources", state: { user : user} }}className="link">Update Resources</Link>
                 <div className="link" onClick={handleLogout}>Log out</div>
             </div>
         </nav>
      );
 }
  
-export default Navbar_Sp;
+export default Navbar_admin;
