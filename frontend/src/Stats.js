@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ApexCharts from "react-apexcharts";
+// import { Bar } from "react-chartjs-2";
 
 const Stats = () => {
     const [completedclassWorks, setCompletedClassWorks] = useState(null);
@@ -32,7 +33,7 @@ const Stats = () => {
     const options = {labels: classWorks ? Object.keys(classWorks) : []};
     const series = classWorks ? Object.values(classWorks) : [];
 
-    const labels = utilizationData&&utilizationData.map((item) => item.resourceType);
+    const labels1 = utilizationData&&utilizationData.map((item) => item.resourceType);
   const counts = utilizationData&&utilizationData.map((item) => item.count);
 
   const options1 = {
@@ -40,7 +41,7 @@ const Stats = () => {
       type: 'bar',
     },
     xaxis: {
-      categories: labels,
+      categories: labels1,
     },
   };
   const counts1 = [
@@ -51,19 +52,25 @@ const Stats = () => {
   ];
 
     return (
-        <div>
+        <div className="stats_container">
+          <div className="stat">
             <h2>All Works by Priority Level</h2>
             {classWorks && (
                 <ApexCharts options={options} series={series} type="pie" width={500} />
             )}
+            </div>
+            <div className="stat">
             <h2>Completed Works by Priority Level</h2>
             {completedclassWorks && (
                 <ApexCharts options={compoptions} series={compseries} type="pie" width={500} />
             )}
-      <h2>Resource Counts Bar Graph</h2>
+            </div>
+            <div className="stat">
+            <h2>Resource Counts Bar Graph</h2>
             {utilizationData && (
                 <ApexCharts options={options1} series={counts1} type="bar" width={500} />
             )}
+            </div>
         </div>
     );
 };

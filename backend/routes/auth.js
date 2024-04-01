@@ -199,7 +199,6 @@ router.post('/data_post', async (req, res) => {
         });
         const savedData = await data_form.save();
         
-        await update_work_schedule();
         res.json({ post: savedData });
     } catch (error) {
         console.error("Error:", error);
@@ -237,7 +236,7 @@ router.post('/update_resources', async (req, res) => {
 router.get("/workschedule", async (req, res) => {
     const { suburb, city, status } = req.query;
     try {
-        const needed_resources = await NEEDED_RESOURCES.find({ suburb, city, status }).exec();
+        const needed_resources = await COMPLAINT.find({ suburb, city, status }).exec();
         res.json(needed_resources);
     } catch (err) {
         console.error("Error fetching work schedule:", err);
@@ -248,22 +247,18 @@ router.get("/workschedule", async (req, res) => {
 router.get("/workschedulecomplete", async (req, res) => {
     const {id}  = req.query;
     try {
-        const complete_resource = await NEEDED_RESOURCES.findByIdAndUpdate(id, { status: "completed" }, { new: true });
+        const complete_resource = await NEEDED_RESOURCES.findOneAndUpdate({complaint_id:id}, { status: "completed" }, { new: true });
+        await COMPLAINT.findByIdAndUpdate(id,{status:"completed"},{new:true});
         if (!complete_resource) {
             return res.status(404).json({ error: "Resource not found", id: id });
         }
         const existingResources = await AVAILABLE_RESOURCES.findOne({});
-       
+
         existingResources.Workers_inuse-=complete_resource.Workers;
-        
         existingResources.Civil_Engineers_inuse-=complete_resource.Civil_Engineers;
-        
         existingResources.Site_Supervisors_inuse-=complete_resource.Site_Supervisors;       
-
         existingResources.Road_Roller_inuse-=complete_resource.Road_Roller;
-
         existingResources.Excavators_inuse-=complete_resource.Excavators;
-
         existingResources.Dump_Trucks_inuse-=complete_resource.Dump_Trucks;
 
         await existingResources.save();
