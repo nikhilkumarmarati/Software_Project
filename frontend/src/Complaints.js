@@ -7,6 +7,8 @@ const Complaints = () => {
   const location=useLocation();
   const user = location.state ? location.state.user : null;
   const [data, setData] = useState([]);
+
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,23 +26,24 @@ const Complaints = () => {
   return (
     <div className="Complaints_container">
       <div className="Complaints_form">
-          <h1>New complaints </h1>
-          {data.map((jsonData,index) => (
+          <h1>All complaints </h1>
+          {data.map((jsonData, index) => (
           <div key={index} className="Complaint_content">
-            {/* Render your blog content here */}
-            <div className="text">
-              <p>Address: {jsonData.Address}</p>
-              
-              <p>Problem: {jsonData.Problem}</p>
-            </div>
-            
+            <div className="rowtexts">
+            <div className="text"><div className="sidelabel">Address :</div> <div className="maintext">{jsonData.Address}</div></div>
             <Link to ={{ pathname: "/Data_form", state: { complaint: jsonData,user:user} }} className="Add_data" >
               <p>Add Data</p>
             </Link>
+            
+            </div>
+              <div className="rowtexts">
+              <div className="text"><div className="sidelabel">Problem :</div><div className="maintext"> {jsonData.Problem}</div></div>
+              </div>
           </div>
         ))}
         </div>
-    </div>
+     </div>
+    
   );
 };
 

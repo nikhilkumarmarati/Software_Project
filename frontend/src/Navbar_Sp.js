@@ -19,10 +19,10 @@ const Navbar_Sp = () => {
             <h1>Public Works Department</h1>
             <div className="links">
                 <Link to={{ pathname: "/Supervisor", state: { user: user} }} className="link">Home</Link>
-                <Link to={{ pathname: "/Edit_Supervisor", state: { user: user} }} className='link'>Edit Profile</Link>
                 <Link to={{ pathname: "/Complaints", state: { user: user} }}className="link">New Complaints</Link>
                 <Link to={{pathname:"/Work_schedule",state: { user: user} }} className="link">Work Schedule</Link>
                 <Link to={{pathname:"/Completed_works",state: { user: user} }} className="link">Completed Works</Link>
+                <Link to={{ pathname: "/Edit_Supervisor", state: { user: user} }} className='link'>Edit Profile</Link>
                 <div className="link" onClick={handleLogout}>Log out</div>
             </div>
         </nav>

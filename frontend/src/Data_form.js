@@ -6,7 +6,7 @@ const Data_form = () => {
   const location=useLocation();
   const user = location.state ? location.state.user : null;
   const comp = location.state ? location.state.complaint : null;
-    const [priority,setPriortiy] = useState(0);
+    const [priority,setPriority] = useState(0);
     const [time,setTime] = useState(0);
     const [Workers,setWorkers] = useState(0);
     const [Civil_Engineers,setCivil_Engineers] = useState(0);
@@ -80,8 +80,15 @@ const Data_form = () => {
             <label>Estimated Time:</label>
             <input type="Number" name="time" value = {time} onChange={(e)=>setTime(e.target.value)} />
             <label>Priority:</label>
-            <input type="Number" name="priority" value = {priority} onChange={(e)=>setPriortiy(e.target.value)} />
-            <button className='submitbutton' type ='submit'>Submit </button>
+            <select name="priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
+              <option value="1">S</option>
+              <option value="2">A</option>
+              <option value="3">B</option>
+              <option value="4">C</option>
+              <option value="5">D</option>
+              <option value="6">E</option>
+           </select>
+           <button className='submitbutton' type ='submit'>Submit </button>
         </form>
             </div>
     );
