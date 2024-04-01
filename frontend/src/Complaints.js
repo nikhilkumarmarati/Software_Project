@@ -24,7 +24,7 @@ const Complaints = () => {
   return (
     <div className="Complaints_container">
       <div className="Complaints_form">
-          <h1>All complaints </h1>
+          <h1>New complaints </h1>
           {data.map((jsonData,index) => (
           <div key={index} className="Complaint_content">
             {/* Render your blog content here */}

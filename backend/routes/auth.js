@@ -86,10 +86,16 @@ router.post('/sign__in', async (req, res) => {
 
 router.get("/allcomplaints", async (req, res) => {
     const { suburb, city, status } = req.query;
-    let query = { suburb, city }; 
+    let query = {}; 
+    
+    if(suburb!="all"&&city!="all"){
+        query.suburb = suburb;
+        query.city= city;
+    }
     if (status) {
         query.status = status;
     }
+    console.log(query)
     try {
         const complaints = await COMPLAINT.find(query)
             .sort("-date")
@@ -100,6 +106,48 @@ router.get("/allcomplaints", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch complaints" });
     }
 });
+
+router.delete("/deletecomplaint/:id", async (req, res) => {
+    const {id} = req.params;
+  
+    try {
+      // Find the user by ID and delete it
+      console.log(id)
+      await COMPLAINT.findByIdAndDelete(id);
+      res.json({ message: "User deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ error: "Failed to delete user" });
+    }
+  });
+
+router.get("/allresources", async (req, res) => {
+    const { status } = req.query;
+    let query = {status}; 
+    
+    console.log(query)
+    try {
+        const resources = await NEEDED_RESOURCES.find(query)
+            .sort("-date")
+            .exec();
+        res.json(resources);
+    } catch (err) {
+        console.error("Error fetching resources:", err);
+        res.status(500).json({ error: "Failed to fetch resources" });
+    }
+});
+router.get("/getcomplaint", async (req, res) => {
+    const { complaint_id } = req.query; // Extract complaint_id from query parameters
+    try {
+        const complaint = await COMPLAINT.findById(complaint_id);
+        res.json(complaint);
+        console.log(complaint);
+    } catch (err) {
+        console.error("Error fetching complaint:", err);
+        res.status(500).json({ error: "Failed to fetch complaint" });
+    }
+});
+
 
 router.post('/complaint_post',async (req,res)=>{
     const{Address,Problem,suburb,city,status} = req.body;
@@ -159,6 +207,33 @@ router.post('/data_post', async (req, res) => {
     }
 });
 
+
+router.post('/update_resources', async (req, res) => {
+    const{Workers,Civil_Engineers,Site_Supervisors,Asphalt_in_kg,Concrete_in_kg,Gravel_in_kg,Road_Roller,Excavators,Dump_Trucks} = req.body;
+    try {
+        const updatedUser = await AVAILABLE_RESOURCES.findOneAndUpdate(
+            { },
+            {   Workers:Workers,
+                Civil_Engineers:Civil_Engineers,
+                Site_Supervisors:Site_Supervisors,
+                Asphalt_in_kg:Asphalt_in_kg,
+                Concrete_in_kg:Concrete_in_kg,
+                Gravel_in_kg:Gravel_in_kg,
+                Road_Roller:Road_Roller,
+                Excavators:Excavators,
+                Dump_Trucks:Dump_Trucks},
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(422).json({ error: "Invalid UserID" });
+        }
+        return res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 router.get("/workschedule", async (req, res) => {
     const { suburb, city, status } = req.query;
     try {
@@ -199,6 +274,17 @@ router.get("/workschedulecomplete", async (req, res) => {
     }
 });
 
+router.get("/update_work_schedule",async(req,res)=>{
+    try{
+        await update_work_schedule();
+        res.json("work schedule updated");
+    }
+    catch(error){
+        console.log(error);
+        res.json(error);
+    }  
+});
+
 router.get("/allcompleted", async (req, res) => {
     const { suburb, city ,status} = req.query;
     try {
@@ -222,15 +308,107 @@ router.get("/get_available_resources", (req, res) => {
         
 })
 
-router.get("/getresources", (req, res) => {
-    const complaint_id = req.query
-    NEEDED_RESOURCES.findOne({complaint_id:complaint_id})
-        .then(resources => {
-            
-        res.json(resources);
-        })
-        .catch(err => console.log(err))
-})
+router.get("/getcompletedclassworks",async(req,res)=>{
+    try{
+     const sWorks = await NEEDED_RESOURCES.countDocuments({ status: "completed", priority: 1 });
+     const aWorks = await NEEDED_RESOURCES.countDocuments({ status: "completed", priority: 2 });
+     const bWorks = await NEEDED_RESOURCES.countDocuments({ status: "completed", priority: 3 });
+     const cWorks = await NEEDED_RESOURCES.countDocuments({ status: "completed", priority: 4 });
+     const dWorks = await NEEDED_RESOURCES.countDocuments({ status: "completed", priority: 5 });
+     const eWorks = await NEEDED_RESOURCES.countDocuments({ status: "completed", priority: 6 });
+     const classWorks = {
+         S: sWorks,
+         A: aWorks ,
+         B: bWorks ,
+         C: cWorks ,
+         D: dWorks ,
+         E: eWorks 
+     };
+ 
+     res.json(classWorks);
+ 
+    }catch(error){
+      res.json(error);
+    }
+ });
+ router.get("/getallclassworks",async(req,res)=>{
+    try{
+     const sWorks = await NEEDED_RESOURCES.countDocuments({   priority: 1 });
+     const aWorks = await NEEDED_RESOURCES.countDocuments({   priority: 2 });
+     const bWorks = await NEEDED_RESOURCES.countDocuments({   priority: 3 });
+     const cWorks = await NEEDED_RESOURCES.countDocuments({   priority: 4 });
+     const dWorks = await NEEDED_RESOURCES.countDocuments({   priority: 5 });
+     const eWorks = await NEEDED_RESOURCES.countDocuments({   priority: 6 });
+     const classWorks = {
+         S: sWorks,
+         A: aWorks ,
+         B: bWorks ,
+         C: cWorks ,
+         D: dWorks ,
+         E: eWorks 
+     };
+ 
+     res.json(classWorks);
+ 
+    }catch(error){
+      res.json(error);
+    }
+ });
+
+
+ router.get('/utilizationStatistics', async (req, res) => {
+    try {
+      const utilizationData = await NEEDED_RESOURCES.find({status:"completed"});
+      let resourceCounts = [];
+
+// Iterate over each document in utilizationData array
+utilizationData.forEach(resource => {
+    resourceCounts.push({
+        resourceType: "Workers",
+        count: resource.Workers
+    });
+    resourceCounts.push({
+        resourceType: "Civil Engineers",
+        count: resource.Civil_Engineers
+    });
+    resourceCounts.push({ 
+        resourceType: "Site Supervisors",
+        count: resource.Site_Supervisors
+    });
+    resourceCounts.push({
+        resourceType: "Asphalt",
+        count: resource.Asphalt_in_kg
+    });
+    resourceCounts.push({
+        resourceType: "Concrete",
+        count: resource.Concrete_in_kg
+    });
+    resourceCounts.push({
+        resourceType: "Gravel",
+        count: resource.Gravel_in_kg
+    });
+    resourceCounts.push({
+        resourceType: "Road Rollers",
+        count: resource.Road_Roller
+    });
+    resourceCounts.push({
+        resourceType: "Excavators",
+        count: resource.Excavators
+    });
+    resourceCounts.push({
+        resourceType: "Dump Trucks",
+        count: resource.Dump_Trucks
+    });
+});
+
+// Now you have an array containing resource counts
+// Send it with the response
+res.json(resourceCounts);
+    } catch (error) {
+      console.error('Error fetching utilization statistics:', error);
+      res.status(500).json({ error: 'Failed to fetch utilization statistics' });
+    }
+  });
 
 module.exports = router;
 

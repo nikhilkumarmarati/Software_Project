@@ -18,8 +18,9 @@ const Navbar_admin = () => {
             <h1>Public Works Department</h1>
             <div className="links">
                 <Link to={{ pathname: "/Administrator_Home", state: { user: user} }} className="link">Home</Link>
-                <Link to={{ pathname: "/Edit_Administrator", state: { user: user} }} className='link'>Edit Profile</Link>
+                <Link to={{ pathname: "/Stats", state: { user: user} }} className='link'>Statistics</Link>
                 <Link to={{ pathname: "/update_resources", state: { user : user} }}className="link">Update Resources</Link>
+                <Link to={{ pathname: "/Edit_Administrator", state: { user: user} }} className='link'>Edit Profile</Link>
                 <div className="link" onClick={handleLogout}>Log out</div>
             </div>
         </nav>

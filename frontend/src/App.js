@@ -19,6 +19,7 @@ import Completed_works from "./Completed_works.js";
 import Administrator_Home from "./Administrator_Home.js";
 import Navbar_admin from "./Navbar_admin.js";
 import UpdateResources from "./UpdateResources.js";
+import Stats from "./Stats.js";
 // import NotFound from './NotFound';
 
 function App() {
@@ -165,6 +166,15 @@ function App() {
             <> 
             <Navbar_admin />
             <UpdateResources />
+            </>
+            : 
+            <Navigate_Signin />  }
+          </Route>
+          <Route  path="/Stats">
+          {issignin ?
+            <> 
+            <Navbar_admin />
+            <Stats />
             </>
             : 
             <Navigate_Signin />  }
