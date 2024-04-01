@@ -18,7 +18,7 @@ const Navbar_Sp = () => {
         <nav className="Navbar">
             <h1>Public Works Department</h1>
             <div className="links">
-                <Link to={{ pathname: "/Supervisor_Home", state: { user: user} }} className="link">Home</Link>
+                <Link to={{ pathname: "/Supervisor", state: { user: user} }} className="link">Home</Link>
                 <Link to={{ pathname: "/Edit_Supervisor", state: { user: user} }} className='link'>Edit Profile</Link>
                 <Link to={{ pathname: "/Complaints", state: { user: user} }}className="link">New Complaints</Link>
                 <Link to={{pathname:"/Work_schedule",state: { user: user} }} className="link">Work Schedule</Link>

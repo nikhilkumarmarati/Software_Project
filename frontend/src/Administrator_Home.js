@@ -7,7 +7,16 @@ const Administrator_Home = () => {
   const user = location.state ? location.state.user : null;
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const [expandedItems, setExpandedItems] = useState({}); // State to manage collapse/expand
+  const [expandedItems, setExpandedItems] = useState({}); 
+  const update_workschedule=async()=>{
+     try{
+      console.log("updating work_schedule");
+      const response = await fetch(`http://localhost:5000/update_work_schedule`);
+      console.log("work_scheduleupdated",response);
+     }catch(error){
+      console.error("Error fetching data:", error);
+     }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,80 +93,75 @@ const Administrator_Home = () => {
 
   return (
     <div className="Clerkhome">
-      <nav className="somebar">
-        <h2>Welcome {user.name}</h2>
-      </nav>
+      
       <div className="Complaints_container">
         <div className="Complaints_form">
-          <h1>Ongoing Works </h1>
+          <div className="admin_home_header">
+            <div></div>
+            <h1>Ongoing Works </h1>
+            <button className="updatebutton" onClick={update_workschedule}>Update Work Schedule</button>
+          </div>
           {/* <button onClick={() => setShowDetails(!showDetails)}>
             {showDetails ? 'Collapse Details' : 'Expand Details'}
           </button> */}
-          {data.map((item, index) => (
+          {data && data.map((item, index) => (
             <div key={index} className="Complaint_content">
-              <div className="texts">
-                {/* <div className="text">
-                  <div className="sidelabel">Problem :</div>
-                  <div className="maintext">{item.problem}</div>
-                </div> */}
                 <div className="rowtexts">
-                  <div className="text">
-                    <div className="sidelabel">Address :</div>
-                    <div className="maintext"> {item.address}</div>
-                  </div>
                   <div className="text">
                     <div className="sidelabel">Problem :</div>
                     <div className="maintext">{item.problem}</div>
+                  </div>
+                  <div className="text">
+                    <div className="sidelabel">Address :</div>
+                    <div className="maintext"> {item.address}</div>
                   </div>
                 </div>
                 <button className="expand-button" onClick={() => toggleItemExpansion(index)}>
                   {expandedItems[index] ? 'Collapse Details' : 'Expand Details'}
                 </button>
-                <div className="rowtexts" style={{ display: expandedItems[index] ? 'block' : 'none' }}>
-                  
-                <div className="text">
+                <div className="expandedform"style={{ display: expandedItems[index] ? '' : 'none' }}> 
+                <div className="expandedformtext">
                   <div className="sidelabel">Time:</div>
                   <div className="maintext">{item.time}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Workers:</div>
                   <div className="maintext">{item.Workers}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Civil Engineers:</div>
                   <div className="maintext">{item.Civil_Engineers}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Site Supervisors:</div>
                   <div className="maintext">{item.Site_Supervisors}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Asphalt (kg):</div>
                   <div className="maintext">{item.Asphalt_in_kg}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Concrete (kg):</div>
                   <div className="maintext">{item.Concrete_in_kg}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Gravel (kg):</div>
                   <div className="maintext">{item.Gravel_in_kg}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Road Roller:</div>
                   <div className="maintext">{item.Road_Roller}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Excavators:</div>
                   <div className="maintext">{item.Excavators}</div>
                 </div>
-                <div className="text">
+                <div className="expandedformtext">
                   <div className="sidelabel">Dump Trucks:</div>
                   <div className="maintext">{item.Dump_Trucks}</div>
                 </div>
                 </div>
               </div>
-            </div>
           ))}
         </div>
       </div>
@@ -166,3 +170,6 @@ const Administrator_Home = () => {
 }
 
 export default Administrator_Home;
+
+
+
