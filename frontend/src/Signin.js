@@ -49,11 +49,6 @@ const handleSubmit = async (e) => {
               pathname: "/Supervisor",
               state: { user: data.savedUser }
             });        }
-          else if(data.savedUser.position === "mayor"){
-            history.push({
-              pathname: "/Mayor_Home",
-              state: { user: data.savedUser }
-            });        }
           else if(data.savedUser.position === "administrator"){
             history.push({
               pathname: "/Administrator_Home",

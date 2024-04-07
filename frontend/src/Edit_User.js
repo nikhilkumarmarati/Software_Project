@@ -45,19 +45,19 @@ const Edit_User = () => {
                 if(data.position === "clerk"){
                     history.push({
                         pathname: "/Clerk_Home",
-                        state: { clerk: data }
+                        state: { user: data }
                     });
                 }
                 else if(data.position === "supervisor"){
                     history.push({
                         pathname: "/Supervisor",
-                        state: { supervisor: data }
+                        state: { user: data }
                     });
                 }
                 else if(data.position === "administrator"){
                     history.push({
                         pathname: "/Administrator_Home",
-                        state: { administrator: data }
+                        state: { user: data }
                     });
                 }
             } else {

@@ -223,6 +223,7 @@ router.post('/update_resources', async (req, res) => {
                 Dump_Trucks:Dump_Trucks},
             { new: true }
         );
+        
         if (!updatedUser) {
             return res.status(422).json({ error: "Invalid UserID" });
         }
