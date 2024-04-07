@@ -75,9 +75,9 @@ const UpdateResorces = () => {
     };
 
     return (
-        <div className="Signin">
+        <div className="Update_form">
             <h1>Edit your information here:</h1>
-            <form className="Data_form" onSubmit={handleSubmit}>
+            <form className="Update_Data_form" onSubmit={handleSubmit}>
                 <label>Number of Workers:</label>
                 <input type="number" name="Workers" value={Workers} onChange={(e) => setWorkers(e.target.value)} />
                 <label>Number of Civil Engineers:</label>
@@ -96,7 +96,7 @@ const UpdateResorces = () => {
                 <input type="number" name="Excavators" value={Excavators} onChange={(e) => setExcavators(e.target.value)} />
                 <label>No. of Dump Trucks:</label>
                 <input type="number" name="Dump_Trucks" value={Dump_Trucks} onChange={(e) => setDump_Trucks(e.target.value)} />
-                <button className='submitbutton' type='submit'>Submit</button>
+                <button className='update11button' type='submit'>Submit</button>
             </form>
         </div>
     );

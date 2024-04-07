@@ -8,7 +8,7 @@ const Completed_works=()=>{
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/allcompleted?suburb=${user.suburb}&city=${user.city}&status=${"completed"}`);
+            const response = await fetch(`http://localhost:5000/allcomplaints?suburb=${user.suburb}&city=${user.city}&status=${"completed"}`);
             const jsonData = await response.json();
             setData(jsonData);
           } catch (error) {
@@ -23,13 +23,15 @@ const Completed_works=()=>{
               <h1>Completed Works: </h1>
               {data.map((jsonData,index) => (
               <div key={index} className="Complaint_content">
-                <div className="text">
-                  <p>suburb {jsonData.suburb}</p>
-                  
-                  <p>city: {jsonData.city}</p>
-                </div>
+                <div className="rowtexts">
+            <div className="text"><div className="sidelabel">Problem: :</div> <div className="maintext">{jsonData.Problem}</div></div>
+            </div>
+              <div className="rowtexts">
+              <div className="text"><div className="sidelabel">Address :</div><div className="maintext"> {jsonData.Address}</div></div>
               </div>
-            ))}
+              </div>
+            )
+            )}
             </div>
         </div>
       );

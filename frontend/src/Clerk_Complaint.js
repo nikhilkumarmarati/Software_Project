@@ -12,11 +12,11 @@ const Clerk_Complaint=()=>{
 
   const handleFocus = () => {
     setIsfocus(true);
-    setIsfocus_comp(false);
+    if(!complaint)setIsfocus_comp(false);
   };
   const handleFocus_complaint = () => {
     setIsfocus_comp(true);
-    setIsfocus(false);
+    if(!location)setIsfocus(false);
   };
 
   const handleSubmit = async (e) => {
@@ -32,7 +32,8 @@ const Clerk_Complaint=()=>{
           Address: location,
           Problem: complaint,
           suburb:user.suburb,
-          city:user.city
+          city:user.city,
+          status:"new"
         })
       });
 

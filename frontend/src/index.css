@@ -45,6 +45,12 @@ body a{
   /* box-shadow: 1px 1px 1px black; */
 }
 
+.Supervisor_Home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Complaints_container{
   padding:0rem 3rem;
   /* background-color: red; */
@@ -120,6 +126,14 @@ body a{
   margin:2rem;
 }
 
+.Data_form select{
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 500px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+}
 /* .Data_form label{
   display: inline-block;
 } */
@@ -150,6 +164,7 @@ body a{
 }
 
 .Complaints_form .Add_data{
+  color: white;
   text-decoration: none;
 }
 
@@ -213,7 +228,7 @@ body a{
   background-size: cover;
   display: flex;
   height:90vh;
-  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
+  /* box-shadow:inset 0 0 2000px rgba(0,0,0,1) */
 }
 
 .Home_text{
@@ -324,6 +339,38 @@ body a{
   color:black;
   background-color: green;
 } */
+
+.updatebutton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 16px;
+  font-weight: 500;
+  margin: auto auto;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.updatebutton:hover {
+  background-color: #45a049;
+  box-shadow: 2px 2px 2px 2px #357d3d; 
+}
+
+.updatebutton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.updatebutton:active {
+  /* background-color: #ad864b;
+  color:#ffffff; */
+  box-shadow: none;
+}
   
   .Clerkhome{
     display: flex;
@@ -459,6 +506,52 @@ body a{
     transform: translate(0px,-40px) scale(0.99);
   }
 
+
+  .completedbutton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 1rem ;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    height: fit-content;
+    font-size: 17px;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .completedbutton:hover {
+    background-color: #45a049;
+  }
+  
+  .completedbutton:disabled {
+    background-color: #cccccc;
+    cursor:not-allowed;
+  }
+  
+  .expand-button {
+    background-color: transparent;
+    color: #007bff; /* Blue color */
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .expand-button:hover {
+    background-color: #007bff; /* Blue color on hover */
+    color: #fff; /* White text on hover */
+  }
+  
+  /* Optional: Add additional styling for the button when it is active */
+  .expand-button:active {
+    background-color: #0056b3; /* Darker shade of blue when button is active */
+  }
   .profile_container{
     height:100vh;
     padding-top: 2rem;
@@ -559,10 +652,137 @@ body a{
     background-color: #333;
   }
 
+  .delete-button {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top:10px;
+    margin-bottom: 40px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
 
 
 
+.admin_home_header{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  column-gap: 0.75rem;
+  /* background-color: #0056b3; */
+}
+
+.expand-button{
+  background-color: #ecebf4;
+  margin: 0 auto;
+}
+
+.expandedform{
+  /* background-color: #6d7ea3; */
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  /* grid-template-rows: repeat(5,1fr); */
+  row-gap: 2rem;
+}
+
+.expandedformtext{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: #66ff00; */
+  margin: 1rem;
+}
+
+.expandedformtext .sidelabel{
+  /* background-color: #1c2841; */
+  margin-right: 0.5rem;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  
+}
+.expandedformtext .maintext{
+  /* background-color: #1c2841; */
+  margin-right: 0.5rem;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  
+}
 
 
+.Update_form {
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Update_form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
 
 
+.Update_Data_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Update_Data_form label {
+  margin-bottom: 5px;
+  color: #555;
+
+}
+
+.Update_Data_form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+
+.update11button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update11button:hover {
+  background-color: #0056b3;
+}
+
+
+  .stats_container{
+    /* background-color: #0056b3; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stat{
+    margin: 2rem;
+    /* background-color: #007bff; */
+  }
+  
+  .stat h2{
+    text-align: center;
+    margin-bottom: 1rem;
+  }
