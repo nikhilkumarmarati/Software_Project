@@ -81,6 +81,7 @@ const Data_form = () => {
             <input type="Number" name="time" value = {time} onChange={(e)=>setTime(e.target.value)} />
             <label>Priority:</label>
             <select name="priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
+              <option value="0">Select Option</option>
               <option value="1">S</option>
               <option value="2">A</option>
               <option value="3">B</option>

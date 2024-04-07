@@ -26,13 +26,13 @@ const Complaints = () => {
   return (
     <div className="Complaints_container">
       <div className="Complaints_form">
-          <h1>All complaints </h1>
+          <h1>New complaints </h1>
           {data.map((jsonData, index) => (
           <div key={index} className="Complaint_content">
             <div className="rowtexts">
             <div className="text"><div className="sidelabel">Address :</div> <div className="maintext">{jsonData.Address}</div></div>
-            <Link to ={{ pathname: "/Data_form", state: { complaint: jsonData,user:user} }} className="Add_data" >
-              <p>Add Data</p>
+            <Link to ={{ pathname: "/Data_form", state: { complaint: jsonData,user:user} }}  >
+              <p className="Add_data">Add Data</p>
             </Link>
             
             </div>

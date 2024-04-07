@@ -8,11 +8,14 @@ const Administrator_Home = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const [expandedItems, setExpandedItems] = useState({}); 
+  const [isPending,setIsPending] = useState(false)
   const update_workschedule=async()=>{
      try{
+      setIsPending(true)
       console.log("updating work_schedule");
       const response = await fetch(`http://localhost:5000/update_work_schedule`);
       console.log("work_scheduleupdated",response);
+      setIsPending(false)
      }catch(error){
       console.error("Error fetching data:", error);
      }
@@ -99,7 +102,9 @@ const Administrator_Home = () => {
           <div className="admin_home_header">
             <div></div>
             <h1>Ongoing Works </h1>
-            <button className="updatebutton" onClick={update_workschedule}>Update Work Schedule</button>
+
+            {!isPending && (<button className="updatebutton" onClick={update_workschedule}>Update Work Schedule</button>)}
+            {isPending && (<button className="updatebutton" onClick={update_workschedule}>Updating.........</button>)}
           </div>
           {/* <button onClick={() => setShowDetails(!showDetails)}>
             {showDetails ? 'Collapse Details' : 'Expand Details'}
@@ -170,6 +175,3 @@ const Administrator_Home = () => {
 }
 
 export default Administrator_Home;
-
-
-

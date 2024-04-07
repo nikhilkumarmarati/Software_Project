@@ -45,6 +45,12 @@ body a{
   /* box-shadow: 1px 1px 1px black; */
 }
 
+.Supervisor_Home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Complaints_container{
   padding:0rem 3rem;
   /* background-color: red; */
@@ -158,6 +164,7 @@ body a{
 }
 
 .Complaints_form .Add_data{
+  color: white;
   text-decoration: none;
 }
 
@@ -221,7 +228,7 @@ body a{
   background-size: cover;
   display: flex;
   height:90vh;
-  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
+  /* box-shadow:inset 0 0 2000px rgba(0,0,0,1) */
 }
 
 .Home_text{
@@ -342,6 +349,7 @@ body a{
   text-decoration: none;
   display: flex;
   font-size: 16px;
+  font-weight: 500;
   margin: auto auto;
   justify-content: center;
   cursor: pointer;
@@ -350,11 +358,18 @@ body a{
 
 .updatebutton:hover {
   background-color: #45a049;
+  box-shadow: 2px 2px 2px 2px #357d3d; 
 }
 
 .updatebutton:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.updatebutton:active {
+  /* background-color: #ad864b;
+  color:#ffffff; */
+  box-shadow: none;
 }
   
   .Clerkhome{
@@ -496,16 +511,17 @@ body a{
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 1rem ;
     text-align: center;
     text-decoration: none;
     display: flex;
-    font-size: 16px;
+    height: fit-content;
+    font-size: 17px;
     margin-left: auto;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 20px;
   }
   
   .completedbutton:hover {
@@ -514,7 +530,7 @@ body a{
   
   .completedbutton:disabled {
     background-color: #cccccc;
-    cursor: not-allowed;
+    cursor:not-allowed;
   }
   
   .expand-button {
@@ -653,7 +669,6 @@ body a{
 }
 
 
-/*Admin home*/
 
 .admin_home_header{
   display: grid;
@@ -702,7 +717,6 @@ body a{
   
 }
 
-/*Admin home*/
 
 .Update_form {
   max-width: 500px;
@@ -756,7 +770,6 @@ body a{
 }
 
 
-  /*stats*/
   .stats_container{
     /* background-color: #0056b3; */
     display: flex;
@@ -773,7 +786,3 @@ body a{
     text-align: center;
     margin-bottom: 1rem;
   }
-
-
-
-

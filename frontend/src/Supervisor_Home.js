@@ -5,7 +5,7 @@ const Supervisor_Home = () => {
   const location = useLocation(); 
   const user = location.state ? location.state.user : null;
   return (
-    <div className="blog-list">
+    <div className="Supervisor_Home">
       <h1>welcome {user.UserID}</h1>
     </div>
   );
