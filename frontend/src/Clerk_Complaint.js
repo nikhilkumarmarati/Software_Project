@@ -55,7 +55,7 @@ const Clerk_Complaint=()=>{
 
       <div className="Clerk_Complaint_Container">
         <form className='Clerk_Complaint_form' onSubmit={handleSubmit}>
-          <h2>Complaint-ID</h2>
+          <h2>Complaint Form</h2>
           <div className="location">
               <input className={` ${isfocus ? 'input-focus':''}`} type="text" 
               value={location}
