@@ -19,7 +19,7 @@ const update_work_schedule=async()=>{
         for (const complaint of complaints_resources) {
             const { Workers,Civil_Engineers,Site_Supervisors, Asphalt_in_kg, Concrete_in_kg, Gravel_in_kg, Road_Roller, Excavators, Dump_Trucks
             } = complaint;
-            if(complaint.status=="pending"){
+            if(complaint.status=="pending" ||complaint.status=="ongoing"){
             if (
                 Workers+available_resources.Workers_inuse <= available_resources.Workers &&
                 Civil_Engineers+available_resources.Civil_Engineers_inuse <= available_resources.Civil_Engineers &&
@@ -45,7 +45,8 @@ const update_work_schedule=async()=>{
                 const updatestatus=await NEEDED_RESOURCES.findByIdAndUpdate(complaint._id, { status: "ongoing" }, { new: true })
                 const complete_resource = await COMPLAINT.findByIdAndUpdate(complaint.complaint_id, { status: "ongoing" }, { new: true });
             } else {
-                continue;
+                const complete_resource = await COMPLAINT.findByIdAndUpdate(complaint.complaint_id, { status: "pending" }, { new: true });
+                const updatestatus=await NEEDED_RESOURCES.findByIdAndUpdate(complaint._id, { status: "pending" }, { new: true })
             }
           }
         }
@@ -95,7 +96,6 @@ router.get("/allcomplaints", async (req, res) => {
     if (status) {
         query.status = status;
     }
-    console.log(query)
     try {
         const complaints = await COMPLAINT.find(query)
             .sort("-date")
@@ -111,8 +111,6 @@ router.delete("/deletecomplaint/:id", async (req, res) => {
     const {id} = req.params;
   
     try {
-      // Find the user by ID and delete it
-      console.log(id)
       await COMPLAINT.findByIdAndDelete(id);
       res.json({ message: "User deleted successfully" });
     } catch (error) {
@@ -124,8 +122,6 @@ router.delete("/deletecomplaint/:id", async (req, res) => {
 router.get("/allresources", async (req, res) => {
     const { status } = req.query;
     let query = {status}; 
-    
-    console.log(query)
     try {
         const resources = await NEEDED_RESOURCES.find(query)
             .sort("-date")
@@ -141,7 +137,6 @@ router.get("/getcomplaint", async (req, res) => {
     try {
         const complaint = await COMPLAINT.findById(complaint_id);
         res.json(complaint);
-        console.log(complaint);
     } catch (err) {
         console.error("Error fetching complaint:", err);
         res.status(500).json({ error: "Failed to fetch complaint" });
@@ -299,7 +294,6 @@ router.get("/get_available_resources", (req, res) => {
         .then(resources => {   
         res.json(resources);
         })
-        .then(update_work_schedule())
         .catch(err => console.log(err))
         
 })
