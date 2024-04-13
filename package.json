@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "apexcharts": "^3.48.0",
+    "chart.js": "^4.4.2",
+    "react-apexcharts": "^1.4.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-toastify": "^10.0.5",
+    "sweetalert2": "^11.10.7"
+  }
+}

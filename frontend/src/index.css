@@ -139,6 +139,10 @@ body {
   max-width: 850px;
 }
 
+.Complaint_content:hover{
+  box-shadow: 2px 2px 0 5px #ffffff;
+}
+
 .Complaint_content .text {
   margin: 1rem 2rem;
   display: flex;
@@ -467,8 +471,12 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background: linear-gradient(to right,rgba(110, 228, 110, 0.534),#d3d32f94); 
-  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
+  /* background: linear-gradient(to right,rgba(110, 228, 110, 0.534),#d3d32f94);  */
+  /* box-shadow:inset 0 0 2000px rgba(0,0,0,1) */
+}
+
+.Home_Container label{
+  /* background-color: #0056b3; */
 }
 
 .Hero{
@@ -487,6 +495,7 @@ body {
 .Home_text{
   font-size: 40px;
   font-weight: 800;
+  color: #ffffff;
 }
 
 .Signin{
@@ -1153,6 +1162,7 @@ body {
     text-align: center;
     margin-bottom: 1rem;
   }
+<<<<<<< HEAD
 
   
  /* .container {
@@ -1300,3 +1310,5 @@ body {
     background-color: #0056b3;
   }
   
+=======
+>>>>>>> 5d1ca18c67a260a4c4bd95c3ea837d0ffa9a52e7
