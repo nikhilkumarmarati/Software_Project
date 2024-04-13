@@ -6,5 +6,8 @@
     "react-chartjs-2": "^5.2.0",
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.10.7"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
