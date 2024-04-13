@@ -13,53 +13,73 @@ const Signin= () =>{
   const { setIssignin } = useContext(LoginContext)
   const history = useHistory();
 
-  const notifyA = (msg) => toast.error(msg)
-  const notifyB = (msg) => toast.success(msg)
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const notifyA = () => toast.error("Signin Failed")
+  const notifyB = () => {
+    return new Promise((resolve, reject) => {
+      console.log("Ohhh");
+      toast.success("SigningIn Successfully");
+      try {
+        setTimeout(() => {
+          console.log("YEss");
+          resolve(); // Resolve the promise after the timeout
+        }, 5000);
+      } catch (error) {
+        console.error("Error displaying toast:", error);
+        reject(error); // Reject the promise if there was an error
+      }
+    });
+  };  
   
-    // Make your fetch request here instead of Axios
-    fetch('http://localhost:5000/sign__in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ UserID: username, password: passw })
-    }).then(res => res.json())
-    .then(data => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      // Make your fetch request here instead of Axios
+      const response = await fetch('http://localhost:5000/sign__in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ UserID: username, password: passw })
+      });
+      const data = await response.json();
+  
       if (data.error) {
-        notifyA(data.error)
+        notifyA(data.error);
         setError(data.error);
-        console.log(error)
       } else {
-        notifyB("Signed In Successfully")
-        
-        console.log(data)
-        
+        await notifyB(); // Wait for the toast to show
+  
+        console.log("khhh");
+  
         setIssignin(true);
         localStorage.setItem('issignin', true);
-        if(data.savedUser.position === "clerk"){
+  
+        if (data.savedUser.position === "clerk") {
           history.push({
-
             pathname: "/Clerk_Home",
             state: { user: data.savedUser }
-          });        }
-          else if(data.savedUser.position === "supervisor"){
-            history.push({
-              pathname: "/Supervisor",
-              state: { user: data.savedUser }
-            });        }
-          else if(data.savedUser.position === "administrator"){
-            history.push({
-              pathname: "/Administrator_Home",
-              state: { user: data.savedUser }
-            });        }
-            console.log(data);
+          });
+        } else if (data.savedUser.position === "supervisor") {
+          history.push({
+            pathname: "/Supervisor",
+            state: { user: data.savedUser }
+          });
+        } else if (data.savedUser.position === "administrator") {
+          history.push({
+            pathname: "/Administrator_Home",
+            state: { user: data.savedUser }
+          });
+        }
       }
-      
-    })
-}
+    } catch (error) {
+      console.error("Error signing in:", error);
+      setError("An unexpected error occurred. Please try again later.");
+      notifyA("An unexpected error occurred. Please try again later.");
+    }
+  };
+  
     return (
         
       <div className="Signin">
@@ -83,6 +103,7 @@ const handleSubmit = async (e) => {
           </div>
            <button className="submitbutton" type="submit"> Submit</button>
         </form>
+        <ToastContainer />
       </div>
     );
 };

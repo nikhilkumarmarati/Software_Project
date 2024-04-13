@@ -139,6 +139,10 @@ body {
   max-width: 850px;
 }
 
+.Complaint_content:hover{
+  box-shadow: 2px 2px 0 5px #ffffff;
+}
+
 .Complaint_content .text {
   margin: 1rem 2rem;
   display: flex;
@@ -467,8 +471,12 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background: linear-gradient(to right,rgba(110, 228, 110, 0.534),#d3d32f94); 
-  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
+  /* background: linear-gradient(to right,rgba(110, 228, 110, 0.534),#d3d32f94);  */
+  /* box-shadow:inset 0 0 2000px rgba(0,0,0,1) */
+}
+
+.Home_Container label{
+  /* background-color: #0056b3; */
 }
 
 .Hero{
@@ -487,6 +495,7 @@ body {
 .Home_text{
   font-size: 40px;
   font-weight: 800;
+  color: #ffffff;
 }
 
 .Signin{
@@ -1153,153 +1162,3 @@ body {
     text-align: center;
     margin-bottom: 1rem;
   }
-<<<<<<< HEAD
-
-
- /* .container {
-    max-width: 500px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .container h3 {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .form-group input {
-    width: 100%;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0 10px;
-    margin-top: 5px;
-  }
-  
-  .form-group input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  .error-message {
-    color: #d9534f;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  .submit-button {
-    width: 100%;
-    height: 40px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  } 
-
-   */
-  
-   .page-container1 {
-  background-image: url("../public/add_clerk1.png");
-  position: absolute;
-  
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-color: #f0f0f0;
-  z-index: -1;
-  }
-  .container {
-    max-width: 500px;
-    margin: 50px auto;
-    /* background-color: #fff; */
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .container h3 {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .label-input {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px; /* Adjust as needed */
-  }
-  
-  .label-input label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 5px; /* Space between label and input */
-  }
-  
-  .label-input input {
-    width: 100%; /* Adjust width as needed */
-    height: 40px; /* Adjust height as needed */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0 10px;
-  }
-  
-  .error-message {
-    color: #d9534f;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  .submit-button {
-    width: 100%;
-    height: 40px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-=======
->>>>>>> 5c56f8c56f6052e535808887371d4679bc733f62
