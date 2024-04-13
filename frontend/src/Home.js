@@ -3,9 +3,12 @@ import React from 'react'
 const Home = () => {
   
     return (
+      <div className='Hero'>
       <div className="Home_Container">
-        <h1>Welcome to the Road Repair App</h1>
+        <label className='Home_text'>Welcome to the Road Repair App</label>
       </div>
+      </div>
+
     );
   }
 
