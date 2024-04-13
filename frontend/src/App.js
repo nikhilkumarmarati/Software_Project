@@ -16,10 +16,17 @@ import {LoginContext} from './Contexts/LoginContext';
 import Navigate_Signin from "./Navigate_Signin.js";
 import Work_schedule from "./Workschedule.js";
 import Completed_works from "./Completed_works.js";
+import Add_Clerk from "./Add_Clerk.js";
+import Add_Supervisor from "./Add_Supervisor.js";
+import Pending_Complaints from "./Pending_Complaints.js";
 import Administrator_Home from "./Administrator_Home.js";
+import Admin_Pending from "./Admin_Pending.js";
 import Navbar_admin from "./Navbar_admin.js";
 import UpdateResources from "./UpdateResources.js";
 import Stats from "./Stats.js";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 // import NotFound from './NotFound';
 
 function App() {
@@ -113,6 +120,15 @@ function App() {
           : 
           <Navigate_Signin />  }
           </Route>
+          <Route  path="/Add_Clerk">
+          {issignin ?
+          <>
+            <Navbar_Sp />
+            <Add_Clerk />
+          </>
+          : 
+          <Navigate_Signin />  }
+          </Route>
           <Route path="/Data_Form">
             {issignin ?
             <>
@@ -127,6 +143,15 @@ function App() {
               <>
               <Navbar_Sp/>
               <Work_schedule/>
+              </>
+              : 
+              <Navigate_Signin />  }
+            </Route>
+            <Route path='/Pending_Complaints'>
+            {issignin ?
+              <>
+               <Navbar_Sp/>
+                <Pending_Complaints/>
               </>
               : 
               <Navigate_Signin />  }
@@ -152,6 +177,24 @@ function App() {
             : 
             <Navigate_Signin />  }
           </Route>
+          <Route path="/Admin_Pending" >
+          {issignin ?
+              <>          
+          <Navbar_admin />
+          <Admin_Pending />
+          </>
+          : 
+          <Navigate_Signin />  }
+        </Route>
+          <Route path="/Add_Supervisor" >
+          {issignin ?
+              <>          
+          <Navbar_admin />
+          <Add_Supervisor />
+          </>
+          : 
+          <Navigate_Signin />  }
+        </Route>
           <Route path="/Edit_Administrator" >
           {issignin ?
               <>          
@@ -180,7 +223,7 @@ function App() {
             <Navigate_Signin />  }
           </Route>
       </Switch>
-
+            
       </LoginContext.Provider>
     </div>
     </Router>

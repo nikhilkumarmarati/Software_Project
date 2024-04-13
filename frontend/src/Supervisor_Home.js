@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
 const Supervisor_Home = () => {
@@ -6,7 +6,9 @@ const Supervisor_Home = () => {
   const user = location.state ? location.state.user : null;
   return (
     <div className="Supervisor_Home">
-      <h1>welcome {user.UserID}</h1>
+      <div className="Supr_cont">
+      <h1 style={{color:"black",fontSize:45}}>Welcome {user.name}</h1>
+    </div>
     </div>
   );
 };

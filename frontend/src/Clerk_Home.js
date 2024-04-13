@@ -108,6 +108,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import Swal from "sweetalert2";
+
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Clerk_Home = () => {
   const location = useLocation();
@@ -135,26 +140,48 @@ const Clerk_Home = () => {
   }, []);
 
   const handleDelete = async (complaintId) => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(`http://localhost:5000/deletecomplaint/${complaintId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete complaint');
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+          
+        });
+        try {
+          setIsLoading(true);
+          const response = await fetch(`http://localhost:5000/deletecomplaint/${complaintId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          if (!response.ok) {
+            throw new Error('Failed to delete complaint');
+          }
+          // Filter out the deleted complaint from the data
+          setData(data.filter(complaint => complaint._id !== complaintId));
+        } catch (error) {
+          setError(error.message);
+        }
+        setIsLoading(false);
       }
-      // Filter out the deleted complaint from the data
-      setData(data.filter(complaint => complaint._id !== complaintId));
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
+    });
+    
   };
+  
 
   return (
+    <div className="background-image">
+    <div className="page-container">
     <div className="Clerkhome">
       <nav className="somebar">
         <h2>Welcome {user.name}</h2>
@@ -162,7 +189,6 @@ const Clerk_Home = () => {
           <Link to={{ pathname: "/Clerk_Complaint", state: { user: user } }} className='submitbutton Add_complaint'>+Complaint</Link>
         </div>
       </nav>
-      <div className="Complaints_container">
         <div className="Complaints_form">
           <h1>All complaints</h1>
           {isLoading ? (
@@ -202,6 +228,7 @@ const Clerk_Home = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

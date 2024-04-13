@@ -47,6 +47,8 @@ const Work_schedule = () => {
   
 
   return (
+    <div className="background-image">
+    <div className="page-container">
     <div className="Complaints_container">
       <div className="Complaints_form">
         <h1>Work_schedule </h1>
@@ -54,7 +56,7 @@ const Work_schedule = () => {
           <div key={index} className="Complaint_content">
             <div className="rowtexts">
             <div className="text"><div className="sidelabel">Problem :</div> <div className="maintext">{jsonData.Problem}</div></div>
-              <button  className="completedbutton" onClick={() => handle_completed(index)}>work completed</button>
+              <button  className="completedbutton" onClick={() => handle_completed(index)}>Work Completed</button>
             
             </div>
               <div className="rowtexts">
@@ -66,6 +68,8 @@ const Work_schedule = () => {
           </div>
         ))}
       </div>
+      </div>
+    </div>
     </div>
   );
 };

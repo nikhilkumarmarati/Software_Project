@@ -45,78 +45,286 @@ body a{
   /* box-shadow: 1px 1px 1px black; */
 }
 
-.Supervisor_Home{
+.Supr_cont{
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  /* background: linear-gradient(to right,rgba(195, 208, 195, 0.534),#94948994);  */
+  /* box-shadow:inset 0 0 2000px rgba(0,0,0,1) */
+}
+
+.Supervisor_Home{
+    background-image: url("../public/supervisor_home.jpg");
+    /* .img-responsive { background-size: 100%; } */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex; 
+    height:90.3vh;
+    
+
+
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden; 
+}
+
+.page-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; 
+}
+
+.background-image {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/next.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #f0f0f0;
+  z-index: -1;
+}
+.background-image_none {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+
+.Complaints_container {
+  
+  height: calc(100% - 75px); 
+  padding: 3rem;
+  overflow-y: auto; 
+}
+
+.Complaints_container h1 {
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  max-height: 100px;
+}
+
+.Complaints_form {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.Complaints_container{
-  padding:0rem 3rem;
-  /* background-color: red; */
-}
-
-.Complaints_form{
-  /* background-color: blue; */
-  display:flex;
-  flex-direction: column;
-}
-
-.Complaints_form h1{
-  margin:2rem auto;
-  padding: 0.5rem;
-  /* border:2px solid green; */
-  border-radius: 5px;
-  box-shadow: 2px 2px 2px 2px rgb(94, 91, 91);
-}
-
-.Complaint_content{
-  /* background-color: green; */
-  margin:2rem;
-  padding:1rem;
-  /* border: 2px solid black; */
-  box-shadow: 2px 2px 2px 2px rgb(171, 171, 171);
+.Complaint_content {
+  background-color: #ffffff;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  min-width: 650px;
-
+  width:100%;
+  max-width: 850px;
 }
 
-.Complaint_content .text{
-  margin:2rem;
+.Complaint_content .text {
+  margin: 1rem 2rem;
   display: flex;
   flex-direction: row;
 }
 
-.Complaint_content .rowtexts{
+.Complaint_content .sidelabel {
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  margin-right: 0.5rem;
+  min-width: 100px;
+  color: #333333;
+}
+
+.Complaint_content .maintext {
+  font-size: 1.2rem;
+  color: #666666;
+}
+
+.Complaints_form .Add_data{
+  color: white;
+  text-decoration: none;
+}
+.Complaints_container {
+  padding: 20px;
+}
+
+.Complaints_form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.Complaint_content {
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rowtexts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+}
+
+.sidelabel {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.maintext {
+  font-size: 16px;
+}
+.Add_data {
+  color: #fff; /* Set initial text color to white */
+  background-color: #007bff; /* Set initial background color */
+  padding: 8px 16px; /* Add padding */
+  border-radius: 4px; /* Add border radius for rounded corners */
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  /* transition: background-color 0.3s; Add transition for smooth color change */
+}
+
+.Add_data:hover {
+  background-color: #0056b3; 
+  color: #fff; 
+}
+
+.Data_form {
+  /* max-width: 800px;
+  margin: 1rem auto;
+  padding:10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(46, 24, 24, 0.1); */
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  height: calc(100% - 75px); 
+  overflow-y: auto; 
+
+}
+
+.Data_form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+
+.Data_form_Update {
+  /* display: flex;
+  flex-direction: column; */
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.Complaint_content .text .sidelabel{
-  font-size: 22px;
-  font-family: "Roboto", sans-serif;
-  margin-right: 0.5rem;
-  min-width:100px;
+.Data_form_Update label {
+  padding: 5px;
+  margin-top: 5px;
+  color: #555; 
+  flex-basis: 25%;
+
 }
 
-.Complaint_content .text .maintext{
-  font-size: 19px;
-  font-family: "Montserrat", sans-serif;
-  /* background-color: aqua; */
+.Data_form_Update input {
+   padding: 7px;
+  margin: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  flex-basis: 70%;
+  margin-bottom: 10px;
 }
 
-.Complaint_content .Add_data{
-  background-color: green;
-  border-radius: 1rem;
-  margin-left: auto;
-  padding: 0.5rem;
+
+.update111button {
+  padding: 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  margin: auto;
+  display: block;
+  transition: background-color 0.3s;
 }
 
+.update111button:hover {
+  background-color: #0056b3;
+} 
+/* Styling for priority dropdown */
+.Data_form_Update select[name="priority"] {
+  flex-basis: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  /* padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  background-color: #fff;
+  color: #333; 
+  font-size: 1rem;
+  cursor: pointer;*/
+  transition: border-color 0.3s ease; 
+}
+
+.Data_form_Update select[name="priority"]:hover,
+.Data_form_Update select[name="priority"]:focus {
+  border-color: #0056b3; /* Change border color on hover and focus */
+}
+
+/* Custom styling for dropdown arrow */
+.Data_form_Update select[name="priority"]::-ms-expand {
+  display: none; /* Hide default arrow in IE */
+}
+
+.Data_form_Update select[name="priority"] {
+  -webkit-appearance: none; /* Remove default arrow in Chrome and Safari */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in other browsers */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000000" width="24" height="24"><path d="M7 10l5 5 5-5z"/></svg>'); /* Add custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center; /* Position arrow on the right */
+}
+
+/* Style option items */
+.Data_form_Update select[name="priority"] option {
+  background-color: #fff; /* Set background color */
+  color: #333; /* Set text color */
+}
+
+/* 
 .Data_form{
-  /* background-color: #f1356d; */
   display: flex;
   flex-direction: column;
   border: 2px solid black;
@@ -134,9 +342,6 @@ body a{
   margin-left: 100px;
   margin-bottom: 10px;
 }
-/* .Data_form label{
-  display: inline-block;
-} */
 
 .Data_form_container .submit_button{
   display: block;
@@ -161,15 +366,9 @@ body a{
   margin:5rem auto;
   max-width: 1000px;
 
-}
-
-.Complaints_form .Add_data{
-  color: white;
-  text-decoration: none;
-}
+} */
 
 
-/* */
 
 
 .Navbar {
@@ -179,7 +378,58 @@ body a{
   margin: 0 auto;
   /* border-bottom: 5px solid #f2f2f2; */
   background: #000;
+  position: relative;
 }
+
+.dropdown-container {
+  position: relative; 
+}
+
+.dropdown-content {
+  display: block;
+    position: absolute;
+    top: 4.5rem; /* Position below the dropdown container */
+    right: 1.5rem;
+    width: 200px;
+    
+    background-color: black; /* Add background color */
+    border: 1px solid gray; /* Add border */
+    padding: 15px; /* Add padding */
+    border-radius: 8px; 
+}
+
+.dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -0.7rem; /* Position below the dropdown container */
+    right: 1.1rem;
+    width: 20px;
+    height: 20px;
+  transform: rotate(45deg);
+  background-color: black;
+  border-left: 1px solid gray;
+  border-top: 1px solid gray;
+}
+
+.dropdown-content .link{
+  display: block;
+  width: 150px;
+    margin-bottom: 10px; /* Add margin between links */
+    color: white; /* Add link color */
+    text-decoration: none;
+}
+.arrow-down {
+  display: inline-block;
+  width: 0;
+  height: 2;
+  margin-left: 5px; /* Adjust the spacing between "Profile" text and the arrow */
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white; /* Change the color of the arrow */
+  vertical-align: middle;
+}
+
+
 
 .Navbar h1{
   color:#fff;
@@ -222,13 +472,16 @@ body a{
 }
 
 .Hero{
-  background-image: url("../public/Home(1).png");
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/home.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  display: flex;
-  height:90vh;
-  /* box-shadow:inset 0 0 2000px rgba(0,0,0,1) */
+  background-color: #f0f0f0;
+  z-index: -1;
 }
 
 .Home_text{
@@ -243,11 +496,18 @@ body a{
   /* background: linear-gradient(to right,#FF6B6B,#FFD700); */
   /* background: linear-gradient(to right,#4A00E0,#EE9AE5); */
   /* background: linear-gradient(to right,#00DBDE,#28C76F); */
-  background: linear-gradient(to right,#130CB7,#FF0099);
+  /* background: linear-gradient(to right,#130CB7,#FF0099); */
   /* background: linear-gradient(to right,#83eaf1,#63a4ff); */
-  height: 90vh;
+  
+  background-image: url("../public/home.jpg");
+  background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex; 
+    height:90.3vh;
+  /* height: 90vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
 }
 
 .Signin h1{
@@ -261,7 +521,8 @@ body a{
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #f2f2f2;
+  background-color: #faf8f855;
+  border-color: #007bff;
   border-radius: 10px;
   
 }
@@ -378,6 +639,8 @@ body a{
     padding: 25px;
     margin-top: 10px;
     gap: 30px;
+    height: calc(100% - 75px); 
+    overflow-y: auto; 
     /* background-color: #f1356d; */
   }
 
@@ -388,9 +651,11 @@ body a{
   }
 
   .somebar {
-    padding: 0px;
+    padding: 2px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    
     /* border-bottom: 5px solid #f2f2f2; */
   }
   
@@ -422,6 +687,7 @@ body a{
     margin: 2rem auto;
     padding:2rem 5rem;
     border-radius: 20px;
+    
   }
 
   .Clerk_Complaint_form h2{
@@ -676,6 +942,21 @@ body a{
   column-gap: 0.75rem;
   /* background-color: #0056b3; */
 }
+.header1{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  text-align: center; 
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    max-height: 100px;
+  
+}
 
 .expand-button{
   background-color: #ecebf4;
@@ -719,13 +1000,16 @@ body a{
 
 
 .Update_form {
-  max-width: 500px;
+  max-width: 600px;
   margin: 1rem auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(46, 24, 24, 0.1);
+  height: calc(100% - 75px); 
+  overflow-y: auto; 
+
 }
 
 .Update_form h1 {
@@ -767,14 +1051,97 @@ body a{
 
 .update11button:hover {
   background-color: #0056b3;
+} 
+/* Styling for priority dropdown */
+.Update_Data_form select[name="priority"] {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #007bff; /* Add a border color to match the button */
+  background-color: #fff; /* Set background color */
+  color: #333; /* Set text color */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
 }
 
+.Update_Data_form select[name="priority"]:hover,
+.Update_Data_form select[name="priority"]:focus {
+  border-color: #0056b3; /* Change border color on hover and focus */
+}
+
+/* Custom styling for dropdown arrow */
+.Update_Data_form select[name="priority"]::-ms-expand {
+  display: none; /* Hide default arrow in IE */
+}
+
+.Update_Data_form select[name="priority"] {
+  -webkit-appearance: none; /* Remove default arrow in Chrome and Safari */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in other browsers */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000000" width="24" height="24"><path d="M7 10l5 5 5-5z"/></svg>'); /* Add custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center; /* Position arrow on the right */
+}
+
+/* Style option items */
+.Update_Data_form select[name="priority"] option {
+  background-color: #fff; /* Set background color */
+  color: #333; /* Set text color */
+}
+
+/* .Update_form {
+  
+}
+
+.Update_form h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.Update_Data_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Update_Data_form label {
+  margin-bottom: 0.5rem;
+}
+
+.Update_Data_form input,
+.Update_Data_form select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.Update_Data_form select {
+  cursor: pointer;
+}
+
+.update11button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.update11button:hover {
+  background-color: #0056b3;
+} */
 
   .stats_container{
     /* background-color: #0056b3; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: calc(100% - 75px); 
+    overflow-y: auto;
   }
   
   .stat{
@@ -786,3 +1153,153 @@ body a{
     text-align: center;
     margin-bottom: 1rem;
   }
+<<<<<<< HEAD
+
+
+ /* .container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container h3 {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+    margin-top: 5px;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .error-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  } 
+
+   */
+  
+   .page-container1 {
+  background-image: url("../public/add_clerk1.png");
+  position: absolute;
+  
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #f0f0f0;
+  z-index: -1;
+  }
+  .container {
+    max-width: 500px;
+    margin: 50px auto;
+    /* background-color: #fff; */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .container h3 {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .label-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  
+  .label-input label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px; /* Space between label and input */
+  }
+  
+  .label-input input {
+    width: 100%; /* Adjust width as needed */
+    height: 40px; /* Adjust height as needed */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+  }
+  
+  .error-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+=======
+>>>>>>> 5c56f8c56f6052e535808887371d4679bc733f62

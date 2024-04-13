@@ -19,7 +19,7 @@ const update_work_schedule=async()=>{
         for (const complaint of complaints_resources) {
             const { Workers,Civil_Engineers,Site_Supervisors, Asphalt_in_kg, Concrete_in_kg, Gravel_in_kg, Road_Roller, Excavators, Dump_Trucks
             } = complaint;
-            if(complaint.status=="pending" ||complaint.status=="ongoing"){
+            if(complaint.status=="pending"||complaint.status=="ongoing"){
             if (
                 Workers+available_resources.Workers_inuse <= available_resources.Workers &&
                 Civil_Engineers+available_resources.Civil_Engineers_inuse <= available_resources.Civil_Engineers &&
@@ -45,8 +45,8 @@ const update_work_schedule=async()=>{
                 const updatestatus=await NEEDED_RESOURCES.findByIdAndUpdate(complaint._id, { status: "ongoing" }, { new: true })
                 const complete_resource = await COMPLAINT.findByIdAndUpdate(complaint.complaint_id, { status: "ongoing" }, { new: true });
             } else {
-                const complete_resource = await COMPLAINT.findByIdAndUpdate(complaint.complaint_id, { status: "pending" }, { new: true });
                 const updatestatus=await NEEDED_RESOURCES.findByIdAndUpdate(complaint._id, { status: "pending" }, { new: true })
+                const complete_resource = await COMPLAINT.findByIdAndUpdate(complaint.complaint_id, { status: "pending" }, { new: true });
             }
           }
         }
@@ -89,7 +89,7 @@ router.get("/allcomplaints", async (req, res) => {
     const { suburb, city, status } = req.query;
     let query = {}; 
     
-    if(suburb!="all"&&city!="all"){
+    if(suburb!="all"){
         query.suburb = suburb;
         query.city= city;
     }
@@ -177,6 +177,28 @@ router.post('/edit_profile', async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+router.post('/add_user', async (req, res) => {
+    const { UserID, password, name, phoneno, suburb, city, position } = req.body;
+    try {
+        const newUser = new user({ 
+            UserID: UserID,
+            password: password,
+            name: name,
+            phoneno: phoneno,
+            suburb: suburb,
+            city: city,
+            position: position,
+            email:"",
+        });
+        await newUser.save();
+        res.json(newUser);
+    } catch (error) {
+        console.error("Error adding user:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 router.post('/data_post', async (req, res) => {
     const {
         complaint_id,priority,time,Workers,Civil_Engineers,Site_Supervisors,Asphalt_in_kg,Concrete_in_kg,Gravel_in_kg,Road_Roller,Excavators,Dump_Trucks} = req.body;

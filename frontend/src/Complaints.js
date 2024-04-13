@@ -23,29 +23,60 @@ const Complaints = () => {
     fetchData();
   }, []);
 
-  return (
-    <div className="Complaints_container">
-      <div className="Complaints_form">
-          <h1>New complaints </h1>
-          {data.map((jsonData, index) => (
-          <div key={index} className="Complaint_content">
-            <div className="rowtexts">
-            <div className="text"><div className="sidelabel">Address :</div> <div className="maintext">{jsonData.Address}</div></div>
-            <Link to ={{ pathname: "/Data_form", state: { complaint: jsonData,user:user} }}  >
+//   return (
+    
+//     <div className="Complaints_container">
+//     <h1>New complaints </h1>
+//       <div className="Complaints_form">
+//           {data.map((jsonData, index) => (
+//           <div key={index} className="Complaint_content">
+//             <div className="rowtexts">
+//             <div className="text"><div className="sidelabel">Address :</div> <div className="maintext">{jsonData.Address}</div></div>
+//             <Link to ={{ pathname: "/Data_form", state: { complaint: jsonData,user:user} }}  >
+//               <p className="Add_data">Add Data</p>
+//             </Link>
+            
+//             </div>
+//               <div className="rowtexts">
+//               <div className="text"><div className="sidelabel">Problem :</div><div className="maintext"> {jsonData.Problem}</div></div>
+//               </div>
+//           </div>
+//         ))}
+//         </div>
+//      </div>
+    
+//   );
+// };
+return (
+  <div className="background-image">
+  <div className="page-container">
+  <div className="Complaints_container">
+    <div className="Complaints_form">
+    <h1>New complaints </h1>
+      {data.map((jsonData, index) => (
+        <div key={index} className="Complaint_content">
+          <div className="rowtexts">
+            <div className="text">
+              <div className="sidelabel">Address :</div>
+              <div className="maintext">{jsonData.Address}</div>
+            </div>
+            <Link to={{ pathname: "/Data_form", state: { complaint: jsonData, user: user } }}>
               <p className="Add_data">Add Data</p>
             </Link>
-            
-            </div>
-              <div className="rowtexts">
-              <div className="text"><div className="sidelabel">Problem :</div><div className="maintext"> {jsonData.Problem}</div></div>
-              </div>
           </div>
-        ))}
+          <div className="rowtexts">
+            <div className="text">
+              <div className="sidelabel">Problem :</div>
+              <div className="maintext">{jsonData.Problem}</div>
+            </div>
+          </div>
         </div>
-     </div>
-    
-  );
+      ))}
+    </div>
+  </div>
+  </div>
+  </div>
+);
 };
-
 export default Complaints;
 
