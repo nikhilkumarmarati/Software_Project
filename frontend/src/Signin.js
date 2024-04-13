@@ -16,11 +16,9 @@ const Signin= () =>{
   const notifyA = () => toast.error("Signin Failed")
   const notifyB = () => {
     return new Promise((resolve, reject) => {
-      console.log("Ohhh");
       toast.success("SigningIn Successfully");
       try {
         setTimeout(() => {
-          console.log("YEss");
           resolve(); // Resolve the promise after the timeout
         }, 5000);
       } catch (error) {
@@ -50,8 +48,6 @@ const Signin= () =>{
         setError(data.error);
       } else {
         await notifyB(); // Wait for the toast to show
-  
-        console.log("khhh");
   
         setIssignin(true);
         localStorage.setItem('issignin', true);
