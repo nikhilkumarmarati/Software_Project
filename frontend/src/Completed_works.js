@@ -28,10 +28,10 @@ const Completed_works=()=>{
               {data.map((jsonData,index) => (
               <div key={index} className="Complaint_content">
                 <div className="rowtexts">
-            <div className="text"><div className="sidelabel">Problem: </div> <div className="maintext">{jsonData.Problem}</div></div>
+            <div className="text"><img src = './Problem_logo.png' alt="" /><div className="sidelabel">Problem: </div> <div className="maintext">{jsonData.Problem}</div></div>
             </div>
               <div className="rowtexts">
-              <div className="text"><div className="sidelabel">Address: </div><div className="maintext"> {jsonData.Address}</div></div>
+              <div className="text"><img src = './Address_logo.png' alt="" /><div className="sidelabel">Address: </div><div className="maintext"> {jsonData.Address}</div></div>
               </div>
               </div>
             )

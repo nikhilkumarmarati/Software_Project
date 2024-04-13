@@ -201,6 +201,7 @@ const Clerk_Home = () => {
                 <div className="texts">
                   <div className="rowtexts">
                   <div className="text">
+                      <img src = './Problem_logo.png' alt="" />
                       <div className="sidelabel">Problem :</div>
                       <div className="maintext"> {jsonData.Problem}</div>
                     </div>
@@ -212,10 +213,12 @@ const Clerk_Home = () => {
                   </div>
                   <div className="rowtexts">
                     <div className="text">
+                    <img src = './Address_logo.png' alt="" />
                       <div className="sidelabel">Address :</div>
                       <div className="maintext"> {jsonData.Address}</div>
                     </div>
                     <div className="text">
+                    <img src = './Status_logo.png' alt="" />
                       <div className="sidelabel">Status :</div>
                       <div className="maintext">{jsonData.status}</div>
                     </div>
