@@ -149,6 +149,12 @@ body {
   flex-direction: row;
 }
 
+.Complaint_content  img{
+  background-color: #ffffff;
+  margin-right: 1rem;
+  width: 2rem;
+}
+
 .Complaint_content .sidelabel {
   font-size: 1.2rem;
   font-family: "Roboto", sans-serif;

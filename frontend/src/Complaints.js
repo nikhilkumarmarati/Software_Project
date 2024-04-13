@@ -57,18 +57,20 @@ return (
         <div key={index} className="Complaint_content">
           <div className="rowtexts">
             <div className="text">
+            <img src = './Problem_logo.png' alt="" />
+              <div className="sidelabel">Problem :</div>
+              <div className="maintext">{jsonData.Problem}</div>
+            </div>
+          </div>
+          <div className="rowtexts">
+            <div className="text">
+            <img src = './Address_logo.png' alt="" />
               <div className="sidelabel">Address :</div>
               <div className="maintext">{jsonData.Address}</div>
             </div>
             <Link to={{ pathname: "/Data_form", state: { complaint: jsonData, user: user } }}>
               <p className="Add_data">Add Data</p>
             </Link>
-          </div>
-          <div className="rowtexts">
-            <div className="text">
-              <div className="sidelabel">Problem :</div>
-              <div className="maintext">{jsonData.Problem}</div>
-            </div>
           </div>
         </div>
       ))}
