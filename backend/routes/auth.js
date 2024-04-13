@@ -96,7 +96,6 @@ router.get("/allcomplaints", async (req, res) => {
     if (status) {
         query.status = status;
     }
-    console.log(query)
     try {
         const complaints = await COMPLAINT.find(query)
             .sort("-date")
@@ -112,8 +111,6 @@ router.delete("/deletecomplaint/:id", async (req, res) => {
     const {id} = req.params;
   
     try {
-      // Find the user by ID and delete it
-      console.log(id)
       await COMPLAINT.findByIdAndDelete(id);
       res.json({ message: "User deleted successfully" });
     } catch (error) {
@@ -125,8 +122,6 @@ router.delete("/deletecomplaint/:id", async (req, res) => {
 router.get("/allresources", async (req, res) => {
     const { status } = req.query;
     let query = {status}; 
-    
-    console.log(query)
     try {
         const resources = await NEEDED_RESOURCES.find(query)
             .sort("-date")
@@ -142,7 +137,6 @@ router.get("/getcomplaint", async (req, res) => {
     try {
         const complaint = await COMPLAINT.findById(complaint_id);
         res.json(complaint);
-        console.log(complaint);
     } catch (err) {
         console.error("Error fetching complaint:", err);
         res.status(500).json({ error: "Failed to fetch complaint" });
@@ -322,7 +316,6 @@ router.get("/get_available_resources", (req, res) => {
         .then(resources => {   
         res.json(resources);
         })
-        .then(update_work_schedule())
         .catch(err => console.log(err))
         
 })
