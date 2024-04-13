@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import { useHistory ,useLocation} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Data_form = () => {
   const history=useHistory();
@@ -45,9 +46,20 @@ const Data_form = () => {
           });
           
           if (!response.ok) {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
             throw new Error('Failed to submit complaint');
           }
           const responseData = await response.json();
+          Swal.fire({
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
             history.push({
             pathname:"/Complaints",
             state: {user:user}
@@ -57,28 +69,33 @@ const Data_form = () => {
         }
       };
     return (
-    <div className="Data_form_container">
-            <form className="Data_form" onSubmit={handleSubmit}>
+      <div className="background-image">
+      <div className="page-container">
+      <div className="Data_form">
+            <h1>Enter Needed Resources:</h1>
+            <form className="Data_form_Update" onSubmit={handleSubmit}>
+             
             <label>Number of Workers:</label>
-            <input type="Number" name="Workers" value = {Workers} onChange={(e)=>setWorkers(e.target.value)} />
+            <input type="Number" name="Workers" value = {Workers} min={0} onChange={(e)=>setWorkers(e.target.value)} />
+          
             <label>Number of Civil Engineers:</label>
-            <input type="Number" name="Civil_Engineers" value = {Civil_Engineers} onChange={(e)=>setCivil_Engineers(e.target.value)} />
+            <input type="Number" name="Civil_Engineers" value = {Civil_Engineers} min={0} onChange={(e)=>setCivil_Engineers(e.target.value)} />
             <label>Number of Site Supervisors:</label>
-            <input type="Number" name="Site_Supervisors" value = {Site_Supervisors} onChange={(e)=>setSite_Supervisors(e.target.value)} />
+            <input type="Number" name="Site_Supervisors" value = {Site_Supervisors} min={0} onChange={(e)=>setSite_Supervisors(e.target.value)} />
             <label>Asphalt in kg:</label>
-            <input type="Number" name="Asphalt_in_kg" value = {Asphalt_in_kg} onChange={(e)=>setAsphalt_in_kg(e.target.value)} />
+            <input type="Number" name="Asphalt_in_kg" value = {Asphalt_in_kg} min={0} onChange={(e)=>setAsphalt_in_kg(e.target.value)} />
             <label>Concrete in kg:</label>
-            <input type="Number" name="Concrete_in_kg" value = {Concrete_in_kg} onChange={(e)=>setConcrete_in_kg(e.target.value)} />
+            <input type="Number" name="Concrete_in_kg" value = {Concrete_in_kg} min={0} onChange={(e)=>setConcrete_in_kg(e.target.value)} />
             <label>Gravel in kg:</label>
-            <input type="Number" name="Gravel_in_kg" value = {Gravel_in_kg} onChange={(e)=>setGravel_in_kg(e.target.value)} />
+            <input type="Number" name="Gravel_in_kg" value = {Gravel_in_kg} min={0} onChange={(e)=>setGravel_in_kg(e.target.value)} />
             <label>No. of Road Rollers:</label>
-            <input type="Number" name="Road_Roller" value = {Road_Roller} onChange={(e)=>setRoad_Roller(e.target.value)} />
+            <input type="Number" name="Road_Roller" value = {Road_Roller} min={0} onChange={(e)=>setRoad_Roller(e.target.value)} />
             <label>No. of Excavators:</label>
-            <input type="Number" name="Excavators" value = {Excavators} onChange={(e)=>setExcavators(e.target.value)} />
+            <input type="Number" name="Excavators" value = {Excavators} min={0} onChange={(e)=>setExcavators(e.target.value)} />
             <label>No. of Dump Trucks:</label>
-            <input type="Number" name="Dump_Trucks" value = {Dump_Trucks} onChange={(e)=>setDump_Trucks(e.target.value)} />
+            <input type="Number" name="Dump_Trucks" value = {Dump_Trucks} min={0} onChange={(e)=>setDump_Trucks(e.target.value)} />
             <label>Estimated Time:</label>
-            <input type="Number" name="time" value = {time} onChange={(e)=>setTime(e.target.value)} />
+            <input type="Number" name="time" value = {time} min={0} onChange={(e)=>setTime(e.target.value)} />
             <label>Priority:</label>
             <select name="priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
               <option value="0">Select Option</option>
@@ -89,8 +106,10 @@ const Data_form = () => {
               <option value="5">D</option>
               <option value="6">E</option>
            </select>
-           <button className='submitbutton' type ='submit'>Submit </button>
+           <button className='update111button' type ='submit'>Submit </button>
         </form>
+            </div>
+            </div>
             </div>
     );
     };

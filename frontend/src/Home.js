@@ -5,8 +5,7 @@ const Home = () => {
     return (
       <div className='Hero'>
       <div className="Home_Container">
-        {/* <img src = "./Home.png" alt="" classname="Home_image" /> */}
-        <span className='Home_text'>Welcome to the Road Repair App</span>
+        <label className='Home_text'>Welcome to the Road Repair App</label>
       </div>
       </div>
 

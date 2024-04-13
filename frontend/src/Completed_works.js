@@ -18,21 +18,27 @@ const Completed_works=()=>{
         fetchData();
       }, []);
       return (
+        <div className="background-image">
+        
+        <div className="page-container">
         <div className="Complaints_container">
+          
           <div className="Complaints_form">
-              <h1>Completed Works: </h1>
+              <h1>Completed Works </h1>
               {data.map((jsonData,index) => (
               <div key={index} className="Complaint_content">
                 <div className="rowtexts">
-            <div className="text"><div className="sidelabel">Problem: :</div> <div className="maintext">{jsonData.Problem}</div></div>
+            <div className="text"><div className="sidelabel">Problem: </div> <div className="maintext">{jsonData.Problem}</div></div>
             </div>
               <div className="rowtexts">
-              <div className="text"><div className="sidelabel">Address :</div><div className="maintext"> {jsonData.Address}</div></div>
+              <div className="text"><div className="sidelabel">Address: </div><div className="maintext"> {jsonData.Address}</div></div>
               </div>
               </div>
             )
             )}
             </div>
+        </div>
+        </div>
         </div>
       );
 };

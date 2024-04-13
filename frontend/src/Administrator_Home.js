@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import Swal from "sweetalert2";
 
 const Administrator_Home = () => {
   const location = useLocation();
@@ -10,15 +11,33 @@ const Administrator_Home = () => {
   const [expandedItems, setExpandedItems] = useState({}); 
   const [isPending,setIsPending] = useState(false)
   const update_workschedule=async()=>{
-     try{
-      setIsPending(true)
-      console.log("updating work_schedule");
-      const response = await fetch(`http://localhost:5000/update_work_schedule`);
-      console.log("work_scheduleupdated",response);
-      setIsPending(false)
-     }catch(error){
-      console.error("Error fetching data:", error);
-     }
+    Swal.fire({
+      title: "Are you sure,",
+      text: "You want to change the Work schedule?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Update it!"
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Updated!",
+          text: "Work Schedule has been updated.",
+          icon: "success"
+        });
+        try{
+          setIsPending(true)
+          console.log("updating work_schedule");
+          const response = await fetch(`http://localhost:5000/update_work_schedule`);
+          console.log("work_scheduleupdated",response);
+          setIsPending(false)
+         }catch(error){
+          console.error("Error fetching data:", error);
+         }
+      }
+    });
+    
   }
 
   useEffect(() => {
@@ -95,14 +114,15 @@ const Administrator_Home = () => {
   };
 
   return (
+    <div className="background-image">
+    <div className="page-container">
     <div className="Clerkhome">
-      
-      <div className="Complaints_container">
         <div className="Complaints_form">
           <div className="admin_home_header">
             <div></div>
-            <h1>Ongoing Works </h1>
-
+            <div className="header1">
+            <h1 >Ongoing Works</h1>
+            </div>
             {!isPending && (<button className="updatebutton" onClick={update_workschedule}>Update Work Schedule</button>)}
             {isPending && (<button className="updatebutton" onClick={update_workschedule}>Updating.........</button>)}
           </div>
@@ -169,6 +189,7 @@ const Administrator_Home = () => {
               </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

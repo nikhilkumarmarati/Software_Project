@@ -1,6 +1,9 @@
 import React,{useState , useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import {LoginContext} from './Contexts/LoginContext';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signin= () =>{
   const [username, setUsername] = useState('');
@@ -8,14 +11,11 @@ const Signin= () =>{
   const [error, setError] = useState('');
 
   const { setIssignin } = useContext(LoginContext)
-  
   const history = useHistory();
-//   const SubmitRecord = async(e) => {
-//     e.preventDefault();
-//     // console.log(username);
-//     // console.log(password);
-//     history.push('/Clerk_Home');
-// };
+
+  const notifyA = (msg) => toast.error(msg)
+  const notifyB = (msg) => toast.success(msg)
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   
@@ -29,10 +29,11 @@ const handleSubmit = async (e) => {
     }).then(res => res.json())
     .then(data => {
       if (data.error) {
+        notifyA(data.error)
         setError(data.error);
-        // notifyA(data.error)
         console.log(error)
       } else {
+        notifyB("Signed In Successfully")
         
         console.log(data)
         
@@ -54,8 +55,9 @@ const handleSubmit = async (e) => {
               pathname: "/Administrator_Home",
               state: { user: data.savedUser }
             });        }
+            console.log(data);
       }
-      console.log(data)
+      
     })
 }
     return (

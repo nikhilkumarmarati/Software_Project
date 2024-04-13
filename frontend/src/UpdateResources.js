@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateResorces = () => {
     const location = useLocation();
@@ -41,63 +42,85 @@ const UpdateResorces = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:5000/update_resources', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Workers: Workers,
-                    Civil_Engineers: Civil_Engineers,
-                    Site_Supervisors: Site_Supervisors,
-                    Asphalt_in_kg: Asphalt_in_kg,
-                    Concrete_in_kg: Concrete_in_kg,
-                    Gravel_in_kg: Gravel_in_kg,
-                    Road_Roller: Road_Roller,
-                    Excavators: Excavators,
-                    Dump_Trucks: Dump_Trucks
-                })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                console.log(data);
-                history.push({
-                    pathname: "/Administrator_Home",
-                    state: { user: location.state && location.state.user }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "The Resources will be updated!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Update it!"
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Updated!",
+                text: "Resources have been updated successfully.",
+                icon: "success"
+              });
+              try {
+                const response = await fetch('http://localhost:5000/update_resources', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Workers: Workers,
+                        Civil_Engineers: Civil_Engineers,
+                        Site_Supervisors: Site_Supervisors,
+                        Asphalt_in_kg: Asphalt_in_kg,
+                        Concrete_in_kg: Concrete_in_kg,
+                        Gravel_in_kg: Gravel_in_kg,
+                        Road_Roller: Road_Roller,
+                        Excavators: Excavators,
+                        Dump_Trucks: Dump_Trucks
+                    })
                 });
-            } else {
-                console.log(data.error);
+                const data = await response.json();
+                if (response.ok) {
+                    console.log(data);
+                    history.push({
+                        pathname: "/Administrator_Home",
+                        state: { user: location.state && location.state.user }
+                    });
+                } else {
+                    console.log(data.error);
+                }
+            } catch (error) {
+                console.error("Error:", error);
             }
-        } catch (error) {
-            console.error("Error:", error);
-        }
+            }
+          });
+        
     };
 
     return (
+        <div className="background-image">
+    <div className="page-container">
         <div className="Update_form">
-            <h1>Edit your information here:</h1>
+            <h1>Edit Available Resources:</h1>
             <form className="Update_Data_form" onSubmit={handleSubmit}>
                 <label>Number of Workers:</label>
-                <input type="number" name="Workers" value={Workers} onChange={(e) => setWorkers(e.target.value)} />
+                <input type="number" name="Workers" value={Workers} min={0} onChange={(e) => setWorkers(e.target.value)} />
                 <label>Number of Civil Engineers:</label>
-                <input type="number" name="Civil_Engineers" value={Civil_Engineers} onChange={(e) => setCivil_Engineers(e.target.value)} />
+                <input type="number" name="Civil_Engineers" value={Civil_Engineers} min={0} onChange={(e) => setCivil_Engineers(e.target.value)} />
                 <label>Number of Site Supervisors:</label>
-                <input type="number" name="Site_Supervisors" value={Site_Supervisors} onChange={(e) => setSite_Supervisors(e.target.value)} />
+                <input type="number" name="Site_Supervisors" value={Site_Supervisors} min={0} onChange={(e) => setSite_Supervisors(e.target.value)} />
                 <label>Asphalt in kg:</label>
-                <input type="number" name="Asphalt_in_kg" value={Asphalt_in_kg} onChange={(e) => setAsphalt_in_kg(e.target.value)} />
+                <input type="number" name="Asphalt_in_kg" value={Asphalt_in_kg} min={0} onChange={(e) => setAsphalt_in_kg(e.target.value)} />
                 <label>Concrete in kg:</label>
-                <input type="number" name="Concrete_in_kg" value={Concrete_in_kg} onChange={(e) => setConcrete_in_kg(e.target.value)} />
+                <input type="number" name="Concrete_in_kg" value={Concrete_in_kg} min={0} onChange={(e) => setConcrete_in_kg(e.target.value)} />
                 <label>Gravel in kg:</label>
-                <input type="number" name="Gravel_in_kg" value={Gravel_in_kg} onChange={(e) => setGravel_in_kg(e.target.value)} />
+                <input type="number" name="Gravel_in_kg" value={Gravel_in_kg} min={0} onChange={(e) => setGravel_in_kg(e.target.value)} />
                 <label>No. of Road Rollers:</label>
-                <input type="number" name="Road_Roller" value={Road_Roller} onChange={(e) => setRoad_Roller(e.target.value)} />
+                <input type="number" name="Road_Roller" value={Road_Roller} min={0} onChange={(e) => setRoad_Roller(e.target.value)} />
                 <label>No. of Excavators:</label>
-                <input type="number" name="Excavators" value={Excavators} onChange={(e) => setExcavators(e.target.value)} />
+                <input type="number" name="Excavators" value={Excavators} min={0} onChange={(e) => setExcavators(e.target.value)} />
                 <label>No. of Dump Trucks:</label>
-                <input type="number" name="Dump_Trucks" value={Dump_Trucks} onChange={(e) => setDump_Trucks(e.target.value)} />
+                <input type="number" name="Dump_Trucks" value={Dump_Trucks} min={0} onChange={(e) => setDump_Trucks(e.target.value)} />
                 <button className='update11button' type='submit'>Submit</button>
             </form>
+        </div>
+        </div>
         </div>
     );
 };
