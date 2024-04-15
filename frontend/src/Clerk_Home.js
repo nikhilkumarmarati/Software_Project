@@ -144,7 +144,6 @@ const Clerk_Home = () => {
           if (!response.ok) {
             throw new Error('Failed to delete complaint');
           }
-          // Filter out the deleted complaint from the data
           setData(data.filter(complaint => complaint._id !== complaintId));
         } catch (error) {
           setError(error.message);
@@ -155,7 +154,6 @@ const Clerk_Home = () => {
     
   };
   
-
   return (
     <div className="background-image_clerk">
     <div className="page-container">

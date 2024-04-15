@@ -14,6 +14,30 @@ const Edit_User = () => {
     const [error, setError] = useState(false);
     const [editpwd, setIseditpwd] = useState(false);
     const [verifypwd, setVerifypwd] = useState(false);
+    const [file,setFile]=useState(null);
+    const [Profilepic, setProfilepic] = useState('./profile.png');
+    
+    useEffect(() => {
+        fetchUserProfilePic(user.UserID);
+    }, [user.UserID],Profilepic);
+    const fetchUserProfilePic = async (userid) => {
+        try {
+            const response = await fetch(`http://localhost:5000/getUserProfilePic?userid=${userid}`);
+            
+            if (response.ok) {
+                const data = await response.json();
+                const url = `${data.profilePicUrl}`;
+                if (url.trim() !== '') {
+                    setProfilepic(url);
+                  }
+            } else {
+                console.error("Failed to fetch user profile picture");
+            }
+        } catch (error) {
+            console.error("Error fetching user profile picture:", error);
+        }
+    }
+
 
     
     const { setIsProfileEdited } = useContext(LoginContext);
@@ -31,6 +55,20 @@ const Edit_User = () => {
             setError(true);
         }
     };
+
+    const handleFileUpload=async(e)=>{
+        if (e.target.files && e.target.files.length > 0) {
+            setFile(e.target.files[0]);
+            const selectedFile=e.target.files[0];
+            const reader = new FileReader();
+        reader.onload = (event) => {
+            
+            setProfilepic(event.target.result);
+        };
+        reader.readAsDataURL(selectedFile);
+          }   
+    }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -67,24 +105,51 @@ const Edit_User = () => {
                 }
             } else {
                 console.log(data.error); 
-            }
+            }    
         } catch (error) {
             console.error("Error:", error); 
         }
+        const formData = new FormData();
+       formData.append('myfile', file);
+       formData.append('UserID', user.UserID);
+       try {
+        const response = await fetch('http://localhost:5000/uploadphoto', {
+            method: 'POST',
+            body: formData
+        });
+        if (response.ok) {
+            console.log("File uploaded successfully");
+        } else {
+            console.error("Failed to upload file");
+        }
+       } catch (error) {
+        console.error("Error uploading file:", error);
+      }
     };
-    
+    const handleEditProfilePic = () => {
+        document.getElementById('file-upload').click();
+    };
     
         return(
         <div className="background-image_clerk">
         <div className="page-container">    
         <div className="profile_container">
             <div className="profile">
-            {/* <h1>Edit your information here:</h1> */}
-                <div className="profilepic"></div>
+                <div className="profilepic">
+                       <img src={Profilepic} alt="Profilepic" />
+                        <div className="edit_profilepic" onClick={handleEditProfilePic}>
+                        <img src = "./editprofile_logo.png" alt ="edit"  />
+                        </div>
+                        <input 
+                          type="file"
+                          id="file-upload"
+                          accept=".jpeg,.png,.jpg"
+                          style={{ display: 'none' }} 
+                          onChange={handleFileUpload} 
+                         />
+                </div>
             <form className="profileform" onSubmit={handleSubmit}>
-
             {error && ( <div className="error_signin profileerror">Invalid Password</div>)}
-
                 <div className="userid">
                     <input
                         type="text"
@@ -182,3 +247,4 @@ const Edit_User = () => {
 
 
 export default Edit_User;
+
