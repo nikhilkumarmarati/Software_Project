@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
     },
     Issignin:{
         type:Number
-    }
+    },
+    
 })
 
 mongoose.model("USER", userSchema)

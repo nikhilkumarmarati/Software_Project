@@ -5,6 +5,10 @@ const COMPLAINT = mongoose.model("COMPLAINT")
 const user = mongoose.model("USER")
 const NEEDED_RESOURCES=mongoose.model("NEEDED_RESOURCES")
 const AVAILABLE_RESOURCES=mongoose.model("AVAILABLE_RESOURCES");
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 
 const update_work_schedule=async()=>{
     const complaints_resources = await NEEDED_RESOURCES.find().sort({ priority: 1, time: 1, Workers: 1 });
@@ -117,7 +121,7 @@ router.delete("/deletecomplaint/:id", async (req, res) => {
       console.error("Error deleting user:", error);
       res.status(500).json({ error: "Failed to delete user" });
     }
-  });
+});
 
 router.get("/allresources", async (req, res) => {
     const { status } = req.query;
@@ -132,6 +136,7 @@ router.get("/allresources", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch resources" });
     }
 });
+
 router.get("/getcomplaint", async (req, res) => {
     const { complaint_id } = req.query; // Extract complaint_id from query parameters
     try {
@@ -142,7 +147,6 @@ router.get("/getcomplaint", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch complaint" });
     }
 });
-
 
 router.post('/complaint_post',async (req,res)=>{
     const{Address,Problem,suburb,city,status} = req.body;
@@ -159,7 +163,8 @@ router.post('/complaint_post',async (req,res)=>{
     await complaint.save()
     .then(result => {res.json({post: result})})
     .catch(err => {console.log(err)})
-})
+});
+
 router.post('/edit_profile', async (req, res) => {
     const { UserID, password,name,phoneno} = req.body;
     try {
@@ -222,7 +227,6 @@ router.post('/data_post', async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-
 
 router.post('/update_resources', async (req, res) => {
     const{Workers,Civil_Engineers,Site_Supervisors,Asphalt_in_kg,Concrete_in_kg,Gravel_in_kg,Road_Roller,Excavators,Dump_Trucks} = req.body;
@@ -318,7 +322,7 @@ router.get("/get_available_resources", (req, res) => {
         })
         .catch(err => console.log(err))
         
-})
+});
 
 router.get("/getcompletedclassworks",async(req,res)=>{
     try{
@@ -342,7 +346,8 @@ router.get("/getcompletedclassworks",async(req,res)=>{
     }catch(error){
       res.json(error);
     }
- });
+});
+
  router.get("/getallclassworks",async(req,res)=>{
     try{
      const sWorks = await NEEDED_RESOURCES.countDocuments({   priority: 1 });
@@ -365,15 +370,12 @@ router.get("/getcompletedclassworks",async(req,res)=>{
     }catch(error){
       res.json(error);
     }
- });
-
+});
 
  router.get('/utilizationStatistics', async (req, res) => {
     try {
       const utilizationData = await NEEDED_RESOURCES.find({status:"completed"});
       let resourceCounts = [];
-
-// Iterate over each document in utilizationData array
 utilizationData.forEach(resource => {
     resourceCounts.push({
         resourceType: "Workers",
@@ -420,7 +422,103 @@ res.json(resourceCounts);
       console.error('Error fetching utilization statistics:', error);
       res.status(500).json({ error: 'Failed to fetch utilization statistics' });
     }
-  });
+});
+
+router.get('/suburbdetails', async (req, res) => {
+    const { suburb } = req.query;
+    try {
+        const supervisors = await user.find({ position: 'supervisor', suburb: suburb });
+        const clerks = await user.find({ position: 'clerk', suburb: suburb });
+        const suburbDetails = {
+            supervisor: supervisors,
+            clerk: clerks
+        };
+
+        res.json(suburbDetails); 
+    } catch (err) {
+        console.log(err);
+        console.log("Error in fetching supervisor and clerk");
+        res.status(500).json({ error: "Error in fetching supervisor and clerk" }); 
+    }
+});
+
+const upload = multer({ 
+    dest: '../frontend/public/' ,
+    fileFilter: function (req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Only image files are allowed!'), false);
+        }
+        cb(null, true);
+    }
+}); 
+
+
+const jsonParser = bodyParser.json({ limit: '100mb' });
+
+router.post('/uploadphoto', upload.single('myfile'), jsonParser, async (req, res) => {
+    const { UserID } = req.body;
+    const myfile = req.file; 
+    if (!myfile) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    try {
+        const destinationPath = path.join(__dirname, '../../frontend/public', UserID + path.extname(myfile.originalname)); 
+        fs.renameSync(myfile.path, destinationPath, fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_TRUNC);
+        
+        res.status(200).json({ message: "File uploaded successfully", filename: UserID });
+    } catch (err) {
+        console.error("Error moving file:", err);
+        res.status(500).json({ error: "Failed to upload photo" });
+    }
+});
+
+
+const fs2 = require('fs').promises;
+
+router.get('/getUserProfilePic', async (req, res) => {
+    const { userid } = req.query;
+    
+    try {
+        const extensions = ['jpg', 'jpeg', 'png'];
+        let profilePicUrl = '';
+
+        for (const ext of extensions) {
+            const imagePath = path.join(__dirname, '../../frontend', 'public', `${userid}.${ext}`);
+            const exists = await fileExists(imagePath);
+
+            if (exists) {
+                profilePicUrl = `./${userid}.${ext}`;
+                break;
+            }
+        }
+
+        res.json({ profilePicUrl });
+    } catch (error) {
+        console.error("Error fetching user profile picture:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+async function fileExists(filePath) {
+    try {
+        await fs2.access(filePath);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+router.get('/new_complaints',async(req,res)=>{
+    const {suburb}=req.query;
+    try{
+        const count = await COMPLAINT.countDocuments({ suburb: suburb, status: "new" });
+        res.json({ count: count });
+    }catch(error){
+        console.error("Error fetching new complaints:", error,count);
+        res.status(500).json({ error: "Internal server error" });
+        }
+});
 
 module.exports = router;
 

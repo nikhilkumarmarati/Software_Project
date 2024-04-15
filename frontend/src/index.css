@@ -460,15 +460,9 @@ body {
 }
 
 
-.Home_Container{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  background: linear-gradient(to right,rgba(110, 228, 110, 0.534),#d3d32f94); 
-  box-shadow:inset 0 0 2000px rgba(0,0,0,1)
+.Home_Container {
+  color: white;
+   width: 50%;
 }
 
 .Hero{
@@ -485,29 +479,101 @@ body {
 }
 
 .Home_text{
+  color: #000;
   font-size: 40px;
   font-weight: 800;
+  text-align: center;
 }
 
-.Signin{
-  /* padding: 20px 0px; */
-  /* background-color: aqua; */
-  /* background: linear-gradient(to right,#ca5291,#cc7d08); */
-  /* background: linear-gradient(to right,#FF6B6B,#FFD700); */
-  /* background: linear-gradient(to right,#4A00E0,#EE9AE5); */
-  /* background: linear-gradient(to right,#00DBDE,#28C76F); */
-  /* background: linear-gradient(to right,#130CB7,#FF0099); */
-  /* background: linear-gradient(to right,#83eaf1,#63a4ff); */
+.Supervisor_container {
   
-  background-image: url("../public/home.jpg");
-  background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    display: flex; 
-    height:90.3vh;
-  /* height: 90vh;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px; /* Add some gap between columns */
+  margin-bottom: 10px;
+  /* height: calc(100% - 75px); 
+  padding: 3rem;
+  overflow-y: auto;  */
+}
+
+.Home_Container {
+  width: 100%;
+  margin-bottom: 20px;
   display: flex;
-  flex-direction: column; */
+  justify-content: center;
+  margin-top: 2rem;
+}
+.supervisor_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width:fit-content;
+  border: 0.5px solid rgb(63, 166, 192);
+  background-color: #eef1f66e;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.supervisor_row:hover{
+  box-shadow: 3px 3px 5px 5px rgba(49, 49, 49, 0.625);
+}
+.details {
+  font-weight: 700;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+}
+
+.details_{
+  padding: 0.25rem;
+}
+
+.supervisor_item {
+ 
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Add some margin between supervisor items */
+}
+
+.profilepi{
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+.profilepi h2 {
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  color: #000;
+}
+
+.profilepi img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+/* Optional: Style for supervisor name */
+.supervisor_item p {
+  margin: 0; /* Remove default margins */
+}
+
+
+.Signin{
+    position: absolute;
+    display: flex; 
+    width: 100%;
+    height: 100%;
+    background-image: url("../public/home.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    background-color: #f0f0f0;
+    z-index: -1;
 }
 
 .Signin h1{
@@ -842,13 +908,25 @@ body {
     top:4rem;
     width:150px;
     height:150px;
-    clip-path: circle(75px);
-    background-image: url("../public/profile.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    clip-path: circle(50%);
     background-color:#9e9b9b;
-    z-index: 1;
+    z-index: 1; 
+    overflow: hidden;
+  }
+
+  .profilepic img{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    z-index:-1;
+  }
+
+  .edit_profilepic{
+    position: absolute;
+    bottom: 15px; 
+    right: 20px; 
+    width: 1.5rem;
+    z-index: 111;
   }
 
   .profile .profileform{
@@ -856,8 +934,7 @@ body {
     flex-direction: column;
     gap: 0.25;
     width: auto;
-    /* max-height:460px ; */
-   
+  
     padding:5rem 5rem 1rem 5rem;
     border-radius: 5px 5px 20px 20px;
     background-color: #786b6b;
@@ -1153,7 +1230,6 @@ body {
     text-align: center;
     margin-bottom: 1rem;
   }
-<<<<<<< HEAD
 
 
  /* .container {
@@ -1301,5 +1377,3 @@ body {
     background-color: #0056b3;
   }
   
-=======
->>>>>>> 5c56f8c56f6052e535808887371d4679bc733f62

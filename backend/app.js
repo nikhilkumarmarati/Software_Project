@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const { mongoUrl } = require("./keys");
 
 
+
 const ipAddress = '127.0.0.1';
 app.use(cors({
     origin: 'http://localhost:3000'

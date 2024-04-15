@@ -1,5 +1,4 @@
 import React, { useState , useEffect ,} from "react";
-import { useHistory } from 'react-router-dom';
 import Navbar_Home from './Navbar_Home'
 import Home from './Home'
 import Signin from './Signin';
@@ -27,16 +26,12 @@ import Stats from "./Stats.js";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-// import NotFound from './NotFound';
-
 function App() {
   
   const [issignin, setIssignin] = useState(() => {
     const storedLoginState = localStorage.getItem('issignin');
     return storedLoginState !== null ? JSON.parse(storedLoginState) : false;
   });
-
-  // Update local storage whenever login state changes
   useEffect(() => {
     window.localStorage.setItem('issignin', JSON.stringify(issignin));
   }, [issignin]);
@@ -44,9 +39,7 @@ function App() {
 
   return (
     <Router>
-
     <div className="App">
-
       <Switch>
         <Route exact path="/" >
           <Navbar_Home />
