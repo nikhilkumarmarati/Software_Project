@@ -1,115 +1,8 @@
-// import React, { useState , useEffect} from "react";
-// import { Link } from 'react-router-dom';
-// import { useLocation,Redirect } from "react-router-dom/cjs/react-router-dom.min";
-
-// const Clerk_Home = () => {
-//   const location = useLocation();
-//   const user = location.state ? location.state.user : null;
-//   const [data, setData] = useState([]);
-
-//   const UserDeleteButton = ({ userId }) => {
-//     const [isLoading, setIsLoading] = useState(false);
-//     const [error, setError] = useState(null);
-//     const [successMessage, setSuccessMessage] = useState(null);
-
-//     const handleDelete = () => {
-//       setIsLoading(true);
-//       setError(null);
-//       setSuccessMessage(null);
-
-//       fetch(`http://localhost:5000/deletecomplaint/${userId}`, {
-//         method: 'DELETE',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       })
-//         .then(response => {
-//           setIsLoading(false);
-//           if (!response.ok) {
-//             throw new Error('An error occurred while deleting the user.');
-//           }
-//           setSuccessMessage('User deleted successfully!');
-          
-//         window.location.reload();
-//           // You can also update your component state or perform any other action as needed
-//         })
-//         .catch(error => {
-//           setIsLoading(false);
-//           setError(error.message);
-//         });
-//     };
-
-//     return (
-//       <div>
-//         {isLoading && <p>Loading...</p>}
-//         {error && <p>{error}</p>}
-//         {successMessage && <p>{successMessage}</p>}
-//         <button onClick={handleDelete} disabled={isLoading}>
-//           Delete User
-//         </button>
-//       </div>
-//     );
-//   };
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch(`http://localhost:5000/allcomplaints?suburb=${user.suburb}&city=${user.city}`);
-//         const jsonData = await response.json();
-//         setData(jsonData);
-//         console.log(jsonData);
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       }
-//     };
-//     fetchData();
-//   }, []);
-
-//   return (
-//     <div className="Clerkhome">
-//       <nav className="somebar">
-//         <h2>Welcome {user.name}</h2>
-//         <div className="extralinks">
-//           <Link to={{ pathname: "/Clerk_Complaint", state: { user: user} }} className='submitbutton Add_complaint'>+Complaint</Link>
-//         </div>
-//       </nav>
-//       <div className="Complaints_container">
-//         <div className="Complaints_form">
-//           <h1>All complaints </h1>
-//           {data.map((jsonData, index) => (
-//             <div key={index} className="Complaint_content">
-//               <div className="texts">
-//                 <div className="text">
-//                   <div className="sidelabel">Problem :</div>
-//                   <div className="maintext">{jsonData.Problem}</div>
-//                 </div>
-//                 <div className="rowtexts">
-//                   <div className="text">
-//                     <div className="sidelabel">Address :</div>
-//                     <div className="maintext"> {jsonData.Address}</div>
-//                   </div>
-//                   <div className="text">
-//                     <div className="sidelabel">Status :</div>
-//                     <div className="maintext">{jsonData.status}</div>
-//                   </div>
-//                   {/* Render delete button for each complaint */}
-//                   {jsonData.status ==="new"&&(<UserDeleteButton userId={jsonData._id} />)}
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Clerk_Home;
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext} from "react";
+import {LoginContext} from './Contexts/LoginContext';
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
-
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -120,6 +13,81 @@ const Clerk_Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  const { isJustSignedIn,setIsJustSignedIn } = useContext(LoginContext);
+  const { isclerk_Complaint , setIsclerk_Complaint } = useContext(LoginContext);
+  const { isProfileEdited , setIsProfileEdited } = useContext(LoginContext);
+
+  const notifyA = () => {
+    if(isclerk_Complaint){
+    toast.success("Complaint Added Successfully", {
+      style: {
+        fontSize: "16px",
+        fontWeight: "bold",
+        color: "#ffffff",
+        padding: "10px",
+        borderRadius: "5px",
+        boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+      },
+      autoClose: 1500,
+    });
+    }
+    setIsclerk_Complaint(false)
+  }
+
+  const notifyB = () => {
+    if (!isLoading && isJustSignedIn) {
+      toast.success("SignedIn Successfully", {
+        style: {
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#ffffff",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+        },
+        autoClose: 1500,
+      });
+    }
+      setIsJustSignedIn(false);
+    }; 
+
+  const notifyC = () => {
+    if (isProfileEdited) {
+      toast.success("Updated Profile Successfully", {
+        style: {
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#ffffff",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+        },
+        autoClose: 1500,
+      });
+    }
+      setIsProfileEdited(false);
+    }; 
+
+  useEffect(()=>{
+    notifyA();
+    notifyB();
+    notifyC();
+  },[])
+
+  const getClassByStatus = (status) => {
+    switch (status) {
+      case 'completed':
+        return 'completed'; // CSS class for completed status (green background)
+      case 'ongoing':
+        return 'ongoing'; // CSS class for ongoing status (yellow background)
+      case 'pending':
+        return 'pending'; // CSS class for pending status (white background)
+      default:
+        return ''; // Default class if status is not recognized
+    }
+  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -139,6 +107,15 @@ const Clerk_Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const showNotification = localStorage.getItem('showNotification');
+    if (showNotification === 'true') {
+      toast.success("Complaint Successfully added.");
+      // Clear the flag from local storage after showing the notification
+      localStorage.removeItem('showNotification');
+    }
+  }, []);
+
   const handleDelete = async (complaintId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -152,7 +129,7 @@ const Clerk_Home = () => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "Complaint has been deleted.",
           icon: "success"
           
         });
@@ -180,7 +157,7 @@ const Clerk_Home = () => {
   
 
   return (
-    <div className="background-image">
+    <div className="background-image_clerk">
     <div className="page-container">
     <div className="Clerkhome">
       <nav className="somebar">
@@ -220,7 +197,8 @@ const Clerk_Home = () => {
                     <div className="text">
                     <img src = './Status_logo.png' alt="" />
                       <div className="sidelabel">Status :</div>
-                      <div className="maintext">{jsonData.status}</div>
+                      <div className={`maintext_${getClassByStatus(jsonData.status)}`}>{jsonData.status}</div>
+
                     </div>
                     {/* Render delete button for each complaint */}
                     
@@ -232,6 +210,7 @@ const Clerk_Home = () => {
         </div>
       </div>
     </div>
+         <ToastContainer position="bottom-left"/> 
     </div>
   );
 }

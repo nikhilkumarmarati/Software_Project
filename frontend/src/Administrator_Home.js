@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext  } from "react";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
+import {LoginContext} from './Contexts/LoginContext';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Administrator_Home = () => {
   const location = useLocation();
@@ -8,7 +12,52 @@ const Administrator_Home = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const [expandedItems, setExpandedItems] = useState({}); 
-  const [isPending,setIsPending] = useState(false)
+  const [isPending,setIsPending] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  
+  const { isJustSignedIn,setIsJustSignedIn } = useContext(LoginContext);
+  const { isProfileEdited , setIsProfileEdited } = useContext(LoginContext);
+
+  const notifyB = () => {
+    if (isJustSignedIn) {
+      toast.success("SignedIn Successfully", {
+        style: {
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#ffffff",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+        },
+        autoClose: 1500,
+      });
+    }
+      setIsJustSignedIn(false);
+    }; 
+
+    const notifyC = () => {
+      if (isProfileEdited) {
+        toast.success("Updated Profile Successfully", {
+          style: {
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#ffffff",
+            padding: "10px",
+            borderRadius: "5px",
+            boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+          },
+          autoClose: 1500,
+        });
+      }
+        setIsProfileEdited(false);
+      };
+
+  useEffect(()=>{
+    notifyB();
+    notifyC();
+  },[])
+
   const update_workschedule=async()=>{
     Swal.fire({
       title: "Are you sure,",
@@ -23,14 +72,16 @@ const Administrator_Home = () => {
         Swal.fire({
           title: "Updated!",
           text: "Work Schedule has been updated.",
-          icon: "success"
+          icon: "success",
+          showConfirmButton: false,
         });
         try{
           setIsPending(true)
           console.log("updating work_schedule");
           const response = await fetch(`http://localhost:5000/update_work_schedule`);
           console.log("work_scheduleupdated",response);
-          setIsPending(false)
+          setIsPending(false);
+          window.location.reload();
          }catch(error){
           console.error("Error fetching data:", error);
          }
@@ -41,6 +92,7 @@ const Administrator_Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         console.log("start")
         const response = await fetch(`http://localhost:5000/allresources?status=${"ongoing"}`);
@@ -51,7 +103,8 @@ const Administrator_Home = () => {
         const complaintDataPromises = jsonData.map(item => {
           return Promise.all([
             GetComplaintProblem(item.complaint_id),
-            GetComplaintAddress(item.complaint_id)
+            GetComplaintAddress(item.complaint_id),
+            
           ]).then(([problem, address]) => {
             return { ...item, problem, address };
           });
@@ -68,6 +121,8 @@ const Administrator_Home = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+      
+    setIsLoading(false);
     };
 
     fetchData();
@@ -75,6 +130,8 @@ const Administrator_Home = () => {
 
   function GetComplaintProblem(complaint_id) {
     console.log(complaint_id)
+    
+    setIsLoading(true);
     return fetch(`http://localhost:5000/getcomplaint?complaint_id=${complaint_id}`)
       .then(res => res.json())
       .then(data => {
@@ -87,11 +144,14 @@ const Administrator_Home = () => {
           return data.Problem;
           
         }
+        
       });
   }
 
   function GetComplaintAddress(complaint_id) {
     console.log(complaint_id)
+    
+    setIsLoading(true);
     return fetch(`http://localhost:5000/getcomplaint?complaint_id=${complaint_id}`)
       .then(res => res.json())
       .then(data => {
@@ -103,6 +163,7 @@ const Administrator_Home = () => {
           console.log(data)
           return data.Address;
         }
+        
       });
   }
   const toggleItemExpansion = (index) => {
@@ -113,13 +174,13 @@ const Administrator_Home = () => {
   };
 
   return (
-    <div className="background-image">
+    <div className="background-image_admin">
     <div className="page-container">
     <div className="Clerkhome">
         <div className="Complaints_form">
           <div className="admin_home_header">
             <div></div>
-            <div className="header1">
+            <div className="">
             <h1 >Ongoing Works</h1>
             </div>
             {!isPending && (<button className="updatebutton" onClick={update_workschedule}>Update Work Schedule</button>)}
@@ -128,7 +189,12 @@ const Administrator_Home = () => {
           {/* <button onClick={() => setShowDetails(!showDetails)}>
             {showDetails ? 'Collapse Details' : 'Expand Details'}
           </button> */}
-          {data && data.map((item, index) => (
+          
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error: {error}</p>
+          ) :( data && data.map((item, index) => (
             <div key={index} className="Complaint_content">
                 <div className="rowtexts">
                   <div className="text">
@@ -186,10 +252,12 @@ const Administrator_Home = () => {
                 </div>
                 </div>
               </div>
+          )
           ))}
         </div>
       </div>
       </div>
+    <ToastContainer position="bottom-left"/>
     </div>
   );
 }

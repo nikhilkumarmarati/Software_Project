@@ -54,7 +54,7 @@ const UpdateResorces = () => {
             if (result.isConfirmed) {
               Swal.fire({
                 title: "Updated!",
-                text: "Resources have been updated successfully.",
+                text: "Resources have been updated successfully.\nMake sure to update work schedule",
                 icon: "success"
               });
               try {
@@ -94,7 +94,7 @@ const UpdateResorces = () => {
     };
 
     return (
-        <div className="background-image">
+        <div className="background-image_admin">
     <div className="page-container">
         <div className="Update_form">
             <h1>Edit Available Resources:</h1>

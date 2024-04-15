@@ -1,9 +1,6 @@
 import React ,{useContext,useState,useEffect,useRef} from 'react'
 import {Link ,useLocation,useHistory} from 'react-router-dom'
 import {LoginContext} from './Contexts/LoginContext';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar_Clerk=() =>{
     const location=useLocation();
@@ -13,9 +10,12 @@ const Navbar_Clerk=() =>{
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const profileDropdownRef = useRef(null);
 
+    const {setIsLoggedout} = useContext(LoginContext);
+
     const handleLogout = () => {
         setIssignin(false);
         localStorage.setItem('issignin', false);
+        setIsLoggedout(true);
         history.push('/Signin');
         console.log("Loggedout");
       };

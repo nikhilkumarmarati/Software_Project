@@ -1,4 +1,4 @@
-import React,{useState , useContext } from "react";
+import React,{useState ,useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import {LoginContext} from './Contexts/LoginContext';
 import { toast } from 'react-toastify';
@@ -10,23 +10,43 @@ const Signin= () =>{
   const [passw, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { setIssignin } = useContext(LoginContext)
+  const { setIssignin } = useContext(LoginContext);
+  const { setIsJustSignedIn } = useContext(LoginContext);
+  const { isLoggedout , setIsLoggedout } = useContext(LoginContext);
   const history = useHistory();
 
-  const notifyA = () => toast.error("Signin Failed")
-  const notifyB = () => {
-    return new Promise((resolve, reject) => {
-      toast.success("SigningIn Successfully");
-      try {
-        setTimeout(() => {
-          resolve(); // Resolve the promise after the timeout
-        }, 5000);
-      } catch (error) {
-        console.error("Error displaying toast:", error);
-        reject(error); // Reject the promise if there was an error
-      }
-    });
-  };  
+  const notifyA = () => toast.error("Signin Failed", {
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "#ffffff",
+      padding: "10px",
+      borderRadius: "5px",
+      boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+    },
+    autoClose: 1500,
+  });
+
+  const notifyB = () =>{ 
+    if(isLoggedout) {
+      toast.info("Logged out", {
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "#ffffff",
+      padding: "10px",
+      borderRadius: "5px",
+      boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+    },
+    autoClose: 1500,
+  });
+  }
+  setIsLoggedout(false);
+}
+  
+  useEffect(()=>{
+    notifyB();
+  },[])
   
 
   const handleSubmit = async (e) => {
@@ -44,12 +64,13 @@ const Signin= () =>{
       const data = await response.json();
   
       if (data.error) {
-        notifyA(data.error);
+        notifyA();
         setError(data.error);
       } else {
-        await notifyB(); // Wait for the toast to show
+        // await notifyB(); // Wait for the toast to show
   
         setIssignin(true);
+        setIsJustSignedIn(true);
         localStorage.setItem('issignin', true);
   
         if (data.savedUser.position === "clerk") {
@@ -72,7 +93,7 @@ const Signin= () =>{
     } catch (error) {
       console.error("Error signing in:", error);
       setError("An unexpected error occurred. Please try again later.");
-      notifyA("An unexpected error occurred. Please try again later.");
+      notifyA();
     }
   };
   
@@ -99,7 +120,7 @@ const Signin= () =>{
           </div>
            <button className="submitbutton" type="submit"> Submit</button>
         </form>
-        <ToastContainer />
+        <ToastContainer position="bottom-left"/>
       </div>
     );
 };
