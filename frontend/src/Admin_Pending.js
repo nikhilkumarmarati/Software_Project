@@ -19,7 +19,7 @@ const Admin_Pending=()=>{
       }, []);
       return (
         
-    <div className="background-image">
+    <div className="background-image_admin">
     <div className="page-container">
         <div className="Complaints_container">
           <div className="Complaints_form">

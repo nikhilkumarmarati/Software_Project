@@ -1,4 +1,4 @@
-import React,{useState , useContext } from "react";
+import React,{useState ,useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import {LoginContext} from './Contexts/LoginContext';
 import { toast } from 'react-toastify';
@@ -10,56 +10,93 @@ const Signin= () =>{
   const [passw, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { setIssignin } = useContext(LoginContext)
+  const { setIssignin } = useContext(LoginContext);
+  const { setIsJustSignedIn } = useContext(LoginContext);
+  const { isLoggedout , setIsLoggedout } = useContext(LoginContext);
   const history = useHistory();
 
-  const notifyA = (msg) => toast.error(msg)
-  const notifyB = (msg) => toast.success(msg)
+  const notifyA = () => toast.error("Signin Failed", {
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "#ffffff",
+      padding: "10px",
+      borderRadius: "5px",
+      boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+    },
+    autoClose: 1500,
+  });
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const notifyB = () =>{ 
+    if(isLoggedout) {
+      toast.info("Logged out", {
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "#ffffff",
+      padding: "10px",
+      borderRadius: "5px",
+      boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+    },
+    autoClose: 1500,
+  });
+  }
+  setIsLoggedout(false);
+}
   
-    // Make your fetch request here instead of Axios
-    fetch('http://localhost:5000/sign__in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ UserID: username, password: passw })
-    }).then(res => res.json())
-    .then(data => {
-      if (data.error) {
-        notifyA(data.error)
-        setError(data.error);
-        console.log(error)
-      } else {
-        notifyB("Signed In Successfully")
-        
-        console.log(data)
-        
-        setIssignin(true);
-        localStorage.setItem('issignin', true);
-        if(data.savedUser.position === "clerk"){
-          history.push({
+  useEffect(()=>{
+    notifyB();
+  },[])
+  
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      // Make your fetch request here instead of Axios
+      const response = await fetch('http://localhost:5000/sign__in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ UserID: username, password: passw })
+      });
+      const data = await response.json();
+  
+      if (data.error) {
+        notifyA();
+        setError(data.error);
+      } else {
+        // await notifyB(); // Wait for the toast to show
+  
+        setIssignin(true);
+        setIsJustSignedIn(true);
+        localStorage.setItem('issignin', true);
+  
+        if (data.savedUser.position === "clerk") {
+          history.push({
             pathname: "/Clerk_Home",
             state: { user: data.savedUser }
-          });        }
-          else if(data.savedUser.position === "supervisor"){
-            history.push({
-              pathname: "/Supervisor",
-              state: { user: data.savedUser }
-            });        }
-          else if(data.savedUser.position === "administrator"){
-            history.push({
-              pathname: "/Administrator_Home",
-              state: { user: data.savedUser }
-            });        }
-            console.log(data);
+          });
+        } else if (data.savedUser.position === "supervisor") {
+          history.push({
+            pathname: "/Supervisor",
+            state: { user: data.savedUser }
+          });
+        } else if (data.savedUser.position === "administrator") {
+          history.push({
+            pathname: "/Administrator_Home",
+            state: { user: data.savedUser }
+          });
+        }
       }
-      
-    })
-}
+    } catch (error) {
+      console.error("Error signing in:", error);
+      setError("An unexpected error occurred. Please try again later.");
+      notifyA();
+    }
+  };
+  
     return (
         
       <div className="Signin">
@@ -83,6 +120,7 @@ const handleSubmit = async (e) => {
           </div>
            <button className="submitbutton" type="submit"> Submit</button>
         </form>
+        <ToastContainer position="bottom-left"/>
       </div>
     );
 };

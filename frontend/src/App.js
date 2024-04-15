@@ -14,6 +14,7 @@ import Data_form from './Data_form';
 import {LoginContext} from './Contexts/LoginContext';
 import Navigate_Signin from "./Navigate_Signin.js";
 import Work_schedule from "./Workschedule.js";
+import Edit_Data_form from "./Edit_Data_form.js";
 import Completed_works from "./Completed_works.js";
 import Add_Clerk from "./Add_Clerk.js";
 import Add_Supervisor from "./Add_Supervisor.js";
@@ -23,8 +24,8 @@ import Admin_Pending from "./Admin_Pending.js";
 import Navbar_admin from "./Navbar_admin.js";
 import UpdateResources from "./UpdateResources.js";
 import Stats from "./Stats.js";
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import {ToastContainer} from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   
@@ -32,6 +33,13 @@ function App() {
     const storedLoginState = localStorage.getItem('issignin');
     return storedLoginState !== null ? JSON.parse(storedLoginState) : false;
   });
+
+  const [isJustSignedIn , setIsJustSignedIn] = useState(false);
+  const [isclerk_Complaint , setIsclerk_Complaint] = useState(false);
+  const [isProfileEdited , setIsProfileEdited] = useState(false);
+  const [isLoggedout , setIsLoggedout] = useState(false);
+
+  // Update local storage whenever login state changes
   useEffect(() => {
     window.localStorage.setItem('issignin', JSON.stringify(issignin));
   }, [issignin]);
@@ -45,7 +53,7 @@ function App() {
           <Navbar_Home />
           <Home />
         </Route>
-        <LoginContext.Provider value={{issignin,setIssignin}}>
+        <LoginContext.Provider value={{issignin,setIssignin,isJustSignedIn , setIsJustSignedIn,isLoggedout , setIsLoggedout}}>
         <Route path="/Signin" >
           <Navbar_Home />
           <Signin /> 
@@ -53,7 +61,7 @@ function App() {
         </LoginContext.Provider>
       </Switch>
 
-      <LoginContext.Provider value={{issignin,setIssignin}}>
+      <LoginContext.Provider value={{issignin,setIssignin,isJustSignedIn , setIsJustSignedIn, isclerk_Complaint , setIsclerk_Complaint,isProfileEdited , setIsProfileEdited,isLoggedout , setIsLoggedout}}>
       <Switch>
         <Route  path="/Clerk_Home" >
           {issignin ?
@@ -136,6 +144,15 @@ function App() {
               <>
               <Navbar_Sp/>
               <Work_schedule/>
+              </>
+              : 
+              <Navigate_Signin />  }
+            </Route>
+            <Route path='/Edit_Data_form'>
+            {issignin ?
+              <>
+              <Navbar_Sp/>
+              <Edit_Data_form/>
               </>
               : 
               <Navigate_Signin />  }

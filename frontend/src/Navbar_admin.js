@@ -10,9 +10,12 @@ const Navbar_admin = () => {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const profileDropdownRef = useRef(null);
 
+    const {setIsLoggedout} = useContext(LoginContext);
+
     const handleLogout = () => {
         setIssignin(false);
         localStorage.setItem('issignin', false);
+        setIsLoggedout(true);
         history.push('/Signin');
         console.log("Loggedout");
       };

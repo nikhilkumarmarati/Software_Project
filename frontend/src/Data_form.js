@@ -49,14 +49,14 @@ const Data_form = () => {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: "Something went wrong!",
+              text: "Something went wrong! Please Try again",
             });
             throw new Error('Failed to submit complaint');
           }
           const responseData = await response.json();
           Swal.fire({
             icon: "success",
-            title: "Your work has been saved",
+            title: "Added Data Successfully",
             showConfirmButton: false,
             timer: 1500
           });

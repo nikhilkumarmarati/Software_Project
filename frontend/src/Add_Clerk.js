@@ -53,6 +53,11 @@ const Add_Clerk = () => {
         });
       } else {
         console.log(data.error); 
+        Swal.fire({
+          title: "Error!",
+          text: "The UserID already exists.",
+          icon: "error"
+        });
       }
     } catch (error) {
       console.error("Error:", error); 
@@ -119,7 +124,7 @@ const Add_Clerk = () => {
               </div>
             </div>
             {error && (<p className="error-message">Error: Unable to sign up.</p>)}
-            <button className="submit-button" type="submit" >Sign Up</button>
+            <button className="submit-button" type="submit" >Add Clerk</button>
           </form>
         </div>
       </div>

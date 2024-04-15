@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import {Link} from 'react-router-dom';
 
 const Pending_Complaints=()=>{
     const location = useLocation();
@@ -27,10 +28,13 @@ const Pending_Complaints=()=>{
               {data.map((jsonData,index) => (
               <div key={index} className="Complaint_content">
                 <div className="rowtexts">
-            <div className="text"><div className="sidelabel">Problem: </div> <div className="maintext">{jsonData.Problem}</div></div>
+            <div className="text"><img src = './Problem_logo.png' alt="" /><div className="sidelabel">Problem: </div> <div className="maintext">{jsonData.Problem}</div></div>
+            <Link to={{ pathname: "/Edit_Data_form", state: { complaint: jsonData, user: user } }}>
+              <p className="Edit_data">Edit Resources</p>
+            </Link>
             </div>
               <div className="rowtexts">
-              <div className="text"><div className="sidelabel">Address: </div><div className="maintext"> {jsonData.Address}</div></div>
+              <div className="text"><img src = './Address_logo.png' alt="" /><div className="sidelabel">Address: </div><div className="maintext"> {jsonData.Address}</div></div>
               </div>
               </div>
             )

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext} from "react";
+import {LoginContext} from './Contexts/LoginContext';
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
-
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,6 +13,81 @@ const Clerk_Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  const { isJustSignedIn,setIsJustSignedIn } = useContext(LoginContext);
+  const { isclerk_Complaint , setIsclerk_Complaint } = useContext(LoginContext);
+  const { isProfileEdited , setIsProfileEdited } = useContext(LoginContext);
+
+  const notifyA = () => {
+    if(isclerk_Complaint){
+    toast.success("Complaint Added Successfully", {
+      style: {
+        fontSize: "16px",
+        fontWeight: "bold",
+        color: "#ffffff",
+        padding: "10px",
+        borderRadius: "5px",
+        boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+      },
+      autoClose: 1500,
+    });
+    }
+    setIsclerk_Complaint(false)
+  }
+
+  const notifyB = () => {
+    if (!isLoading && isJustSignedIn) {
+      toast.success("SignedIn Successfully", {
+        style: {
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#ffffff",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+        },
+        autoClose: 1500,
+      });
+    }
+      setIsJustSignedIn(false);
+    }; 
+
+  const notifyC = () => {
+    if (isProfileEdited) {
+      toast.success("Updated Profile Successfully", {
+        style: {
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#ffffff",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+        },
+        autoClose: 1500,
+      });
+    }
+      setIsProfileEdited(false);
+    }; 
+
+  useEffect(()=>{
+    notifyA();
+    notifyB();
+    notifyC();
+  },[])
+
+  const getClassByStatus = (status) => {
+    switch (status) {
+      case 'completed':
+        return 'completed'; // CSS class for completed status (green background)
+      case 'ongoing':
+        return 'ongoing'; // CSS class for ongoing status (yellow background)
+      case 'pending':
+        return 'pending'; // CSS class for pending status (white background)
+      default:
+        return ''; // Default class if status is not recognized
+    }
+  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +107,15 @@ const Clerk_Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const showNotification = localStorage.getItem('showNotification');
+    if (showNotification === 'true') {
+      toast.success("Complaint Successfully added.");
+      // Clear the flag from local storage after showing the notification
+      localStorage.removeItem('showNotification');
+    }
+  }, []);
+
   const handleDelete = async (complaintId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -45,7 +129,7 @@ const Clerk_Home = () => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "Complaint has been deleted.",
           icon: "success"
           
         });
@@ -71,7 +155,7 @@ const Clerk_Home = () => {
   };
   
   return (
-    <div className="background-image">
+    <div className="background-image_clerk">
     <div className="page-container">
     <div className="Clerkhome">
       <nav className="somebar">
@@ -92,6 +176,7 @@ const Clerk_Home = () => {
                 <div className="texts">
                   <div className="rowtexts">
                   <div className="text">
+                      <img src = './Problem_logo.png' alt="" />
                       <div className="sidelabel">Problem :</div>
                       <div className="maintext"> {jsonData.Problem}</div>
                     </div>
@@ -103,12 +188,15 @@ const Clerk_Home = () => {
                   </div>
                   <div className="rowtexts">
                     <div className="text">
+                    <img src = './Address_logo.png' alt="" />
                       <div className="sidelabel">Address :</div>
                       <div className="maintext"> {jsonData.Address}</div>
                     </div>
                     <div className="text">
+                    <img src = './Status_logo.png' alt="" />
                       <div className="sidelabel">Status :</div>
-                      <div className="maintext">{jsonData.status}</div>
+                      <div className={`maintext_${getClassByStatus(jsonData.status)}`}>{jsonData.status}</div>
+
                     </div>
                     {/* Render delete button for each complaint */}
                     
@@ -120,6 +208,7 @@ const Clerk_Home = () => {
         </div>
       </div>
     </div>
+         <ToastContainer position="bottom-left"/> 
     </div>
   );
 }

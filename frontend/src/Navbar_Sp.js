@@ -13,10 +13,13 @@ const Navbar_Sp = () => {
     const complaintDropdownRef = useRef(null);
     const [newdata,setNewdata]=useState(0);
 
+    const {setIsLoggedout} = useContext(LoginContext);
+
     const handleLogout = () => {
         setIssignin(false);
         setShowProfileDropdown(false);
         localStorage.setItem('issignin', false);
+        setIsLoggedout(true);
         history.push('/Signin');
         console.log("Logged out");
     };

@@ -148,6 +148,18 @@ router.get("/getcomplaint", async (req, res) => {
     }
 });
 
+router.get("/get_data_form", async (req, res) => {
+    const { complaint_id } = req.query;
+    let query = {complaint_id}; 
+    console.log(query);
+    try {
+        const resources = await NEEDED_RESOURCES.findOne(query)
+        return res.json(resources);
+    } catch (err) {
+        console.error("Error fetching resources:", err);
+        return res.status(500).json({ error: "Failed to fetch resources" });
+    }
+});
 router.post('/complaint_post',async (req,res)=>{
     const{Address,Problem,suburb,city,status} = req.body;
     if (!Address || !Problem) {
@@ -225,6 +237,34 @@ router.post('/data_post', async (req, res) => {
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+router.post('/edit_data_post', async (req, res) => {
+    const {
+        complaint_id,priority,time,Workers,Civil_Engineers,Site_Supervisors,Asphalt_in_kg,Concrete_in_kg,Gravel_in_kg,Road_Roller,Excavators,Dump_Trucks} = req.body;
+
+    try {
+        const updatedUser = await NEEDED_RESOURCES.findOneAndUpdate(
+            { complaint_id:complaint_id},
+            {   priority:priority,
+                time:time,
+                Workers:Workers,
+                Civil_Engineers:Civil_Engineers,
+                Site_Supervisors:Site_Supervisors,
+                Asphalt_in_kg:Asphalt_in_kg,
+                Concrete_in_kg:Concrete_in_kg,
+                Gravel_in_kg:Gravel_in_kg,
+                Road_Roller:Road_Roller,
+                Excavators:Excavators,
+                Dump_Trucks:Dump_Trucks},
+            { new: true }
+        );
+        
+        return res.json(updatedUser);
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
