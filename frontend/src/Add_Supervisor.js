@@ -54,6 +54,11 @@ const Add_Supervisor = () => {
         });
       } else {
         console.log(data.error); 
+        Swal.fire({
+          title: "Error!",
+          text: "The UserID already exists.",
+          icon: "error"
+        });
       }
     } catch (error) {
       console.error("Error:", error); 
@@ -133,7 +138,7 @@ const Add_Supervisor = () => {
               </div>
             </div>
             {error && (<p className="error-message">Error: Unable to sign up.</p>)}
-            <button className="submit-button" type="submit" >Create</button>
+            <button className="submit-button" type="submit" >Add Supervisor</button>
           </form>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import {LoginContext} from './Contexts/LoginContext';
 
 const Edit_User = () => {
     const location = useLocation();
@@ -13,6 +14,9 @@ const Edit_User = () => {
     const [error, setError] = useState(false);
     const [editpwd, setIseditpwd] = useState(false);
     const [verifypwd, setVerifypwd] = useState(false);
+
+    
+    const { setIsProfileEdited } = useContext(LoginContext);
 
     const handlechangepwd = () => {
         if(!editpwd) setIseditpwd(true);
@@ -41,6 +45,7 @@ const Edit_User = () => {
             const data = await response.json();   
             if (response.ok) {
                 console.log(data);
+                setIsProfileEdited(true);
             
                 if(data.position === "clerk"){
                     history.push({
@@ -70,6 +75,8 @@ const Edit_User = () => {
     
     
         return(
+        <div className="background-image_clerk">
+        <div className="page-container">    
         <div className="profile_container">
             <div className="profile">
             {/* <h1>Edit your information here:</h1> */}
@@ -168,6 +175,7 @@ const Edit_User = () => {
             </form>
         </div>
         </div>
+        </div></div>
         );
     
 };

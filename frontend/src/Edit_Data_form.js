@@ -1,12 +1,15 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import { useHistory ,useLocation} from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {Link} from 'react-router-dom';
 
-const Data_form = () => {
+const Edit_Data_form = () => {
   const history=useHistory();
   const location=useLocation();
   const user = location.state ? location.state.user : null;
   const comp = location.state ? location.state.complaint : null;
+
+    const [data,setData] = useState(0);
     const [priority,setPriority] = useState(0);
     const [time,setTime] = useState(0);
     const [Workers,setWorkers] = useState(0);
@@ -19,12 +22,36 @@ const Data_form = () => {
     const [Excavators,setExcavators] = useState(0);
     const [Dump_Trucks,setDump_Trucks] = useState(0);
     
-  
+    useEffect(() => {
+        console.log(user.suburb,user.city,comp.Problem)
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`http://localhost:5000/get_data_form?complaint_id=${comp._id}`);
+            const jsonData = await response.json();
+            setData(jsonData);
+            setWorkers(jsonData.Workers);
+            setPriority(jsonData.priority);
+            setTime(jsonData.time);
+            setCivil_Engineers(jsonData.Civil_Engineers);
+            setSite_Supervisors(jsonData.Site_Supervisors);
+            setAsphalt_in_kg(jsonData.Asphalt_in_kg);
+            setConcrete_in_kg(jsonData.Concrete_in_kg);
+            setGravel_in_kg(jsonData.Gravel_in_kg);
+            setRoad_Roller(jsonData.Road_Roller);
+            setExcavators(jsonData.Excavators);
+            setDump_Trucks(jsonData.Dump_Trucks);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+        fetchData();
+      }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(comp._id);
         try {
-          const response = await fetch('http://localhost:5000/data_post', {
+          const response = await fetch('http://localhost:5000/edit_data_post', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -49,19 +76,20 @@ const Data_form = () => {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: "Something went wrong! Please Try again",
+              text: "Something went wrong!",
             });
             throw new Error('Failed to submit complaint');
           }
           const responseData = await response.json();
           Swal.fire({
             icon: "success",
-            title: "Added Data Successfully",
+            title: "Resources Updated Sccessfully",
             showConfirmButton: false,
             timer: 1500
           });
+          console.log("Helllllo")
             history.push({
-            pathname:"/Complaints",
+            pathname:"/Work_schedule",
             state: {user:user}
         });
         } catch (error) {
@@ -115,5 +143,5 @@ const Data_form = () => {
     };
 
 
-export default Data_form;
+export default Edit_Data_form;
 
