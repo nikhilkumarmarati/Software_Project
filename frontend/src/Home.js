@@ -15,8 +15,7 @@ const Home = () => {
   };
   useEffect(() => {
     fetchDataForAllSuburbs();
-    
-  }, []);
+  }, [fetchData]);
   const fetchDataForAllSuburbs = async () => {
     try {
       const suburbDataArray = await Promise.all(suburbs.map(suburb => fetchData(suburb)));
