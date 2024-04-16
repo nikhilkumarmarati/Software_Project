@@ -8,7 +8,7 @@ const Admin_Pending=()=>{
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/allcomplaints?status=${"pending"}`);
+            const response = await fetch(`http://localhost:5000/allcomplaints?suburb=${"all"}&city=${"all"}&status=${"pending"}`);
             const jsonData = await response.json();
             setData(jsonData);
           } catch (error) {
