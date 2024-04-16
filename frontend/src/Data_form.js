@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import { useHistory ,useLocation} from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -18,6 +18,18 @@ const Data_form = () => {
     const [Road_Roller,setRoad_Roller] = useState(0);
     const [Excavators,setExcavators] = useState(0);
     const [Dump_Trucks,setDump_Trucks] = useState(0);
+    const [showInstructions, setShowInstructions] = useState(false);
+    const [blurBackground, setBlurBackground] = useState(false);
+
+    const handleInfoClick = () => {
+      setShowInstructions(true);
+      setBlurBackground(true);
+    };
+
+     const handleCloseInstructions = () => {
+       setShowInstructions(false);
+       setBlurBackground(false);
+     };
     
   
     const handleSubmit = async (e) => {
@@ -70,7 +82,7 @@ const Data_form = () => {
       };
     return (
       <div className="background-image">
-      <div className="page-container">
+      <div className={`page-container ${blurBackground ? 'blur' : ''}`}>
       <div className="Data_form">
             <h1>Enter Needed Resources:</h1>
             <form className="Data_form_Update" onSubmit={handleSubmit}>
@@ -96,7 +108,12 @@ const Data_form = () => {
             <input type="Number" name="Dump_Trucks" value = {Dump_Trucks} min={0} onChange={(e)=>setDump_Trucks(e.target.value)} />
             <label>Estimated Time:</label>
             <input type="Number" name="time" value = {time} min={0} onChange={(e)=>setTime(e.target.value)} />
-            <label>Priority:</label>
+            <label>Priority:
+            <button type="button" className='info' onClick={handleInfoClick}>
+              <img src="./info.png" alt="info" />
+           </button>
+            </label>
+            
             <select name="priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
               <option value="0">Select Option</option>
               <option value="1">S</option>
@@ -106,11 +123,24 @@ const Data_form = () => {
               <option value="5">D</option>
               <option value="6">E</option>
            </select>
+           
            <button className='update111button' type ='submit'>Submit </button>
         </form>
             </div>
             </div>
-            </div>
+            <div className={`priority-instructions ${showInstructions ? 'show' : ''}`}>
+                <h2>Instructions for Priority Levels:</h2>
+                <ul>
+                <li><strong>Category S (Severe):</strong>  Problems requiring immediate attention due to severe damage posing significant safety hazards or causing major disruptions to traffic flow. Examples include large potholes, road collapses, or structural damage</li>
+                <li><strong>Category A (Urgent):</strong> Issues that need to be addressed promptly but may not pose immediate safety risks. These problems could potentially worsen if left unattended and may affect traffic flow or cause inconvenience to motorists. Examples include moderate potholes, road surface deterioration, or drainage problems</li>
+                <li><strong>Category B (High):</strong>Road repair problems that are important but can be addressed within a reasonable timeframe without causing major disruptions. These issues may impact road quality and driving comfort but are not urgent. Examples include minor potholes, cracks, or faded road markings </li>
+                <li><strong>Category C (Medium):</strong> Issues that require attention but can be scheduled for repair during routine maintenance cycles. These problems do not significantly affect road safety or traffic flow and can be managed without immediate action. Examples include minor surface irregularities, faded road signs, or minor vegetation encroachment</li>
+                <li><strong>Category D (Low): </strong>  Minor road repair problems that have minimal impact on road safety, traffic flow, or driving conditions. These issues can be addressed during regular inspections and maintenance activities but do not require immediate attention. Examples include cosmetic imperfections, minor debris accumulation, or small cracks.</li>
+                <li><strong>Category E (Negligible):</strong> Minimal or negligible road repair problems that have no significant impact on road safety, traffic flow, or driving conditions. These issues may be aesthetic or minor in nature and can be addressed during routine maintenance cycles or as part of ongoing improvement projects. Examples include minor paint fading, small roadside litter, or cosmetic blemishes</li>
+                </ul>
+                <button onClick={handleCloseInstructions}>Close</button>
+             </div>
+        </div>
     );
     };
 

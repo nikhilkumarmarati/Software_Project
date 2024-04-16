@@ -25,7 +25,7 @@ const Home = () => {
       console.error("Error fetching data:", error);
     }
   };
-  const imageExists = (url) => {
+  const imageExists = async(url) => {
     const img = new Image();
     img.src = url;
     return img.complete || (img.width + img.height) > 0;

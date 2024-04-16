@@ -560,5 +560,18 @@ router.get('/new_complaints',async(req,res)=>{
         }
 });
 
+router.get('/workstatus',async(req,res)=>{
+   try{
+    const completedworks=await COMPLAINT.countDocuments({status:"completed"});
+    const complaints=await COMPLAINT.countDocuments();
+    const pendingworks=await COMPLAINT.countDocuments({status:"pending"});
+    const ongoing=await COMPLAINT.countDocuments({status:"ongoing"});
+    res.json({completedworks:completedworks,complaints:complaints,pendingworks:pendingworks,ongoing:ongoing});
+   }catch(error){
+    console.error("Error fetching nwork status:", error,count);
+        res.status(500).json({ error: "Internal server error" });
+   }
+});
+
 module.exports = router;
 

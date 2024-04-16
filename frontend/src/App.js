@@ -24,9 +24,6 @@ import Admin_Pending from "./Admin_Pending.js";
 import Navbar_admin from "./Navbar_admin.js";
 import UpdateResources from "./UpdateResources.js";
 import Stats from "./Stats.js";
-// import {ToastContainer} from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   
   const [issignin, setIssignin] = useState(() => {
